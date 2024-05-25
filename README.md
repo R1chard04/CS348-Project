@@ -1,3 +1,3 @@
 ## CS348 Project
 
-Initial Commit Test
+Milestone 0: Setup

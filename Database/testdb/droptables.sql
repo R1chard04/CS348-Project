@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS wfp_food_prices;
