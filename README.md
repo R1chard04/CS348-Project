@@ -27,6 +27,16 @@ These reponsibilites are what we could foresee at this point, and what every one
 
 5. *Thomas Wang*: Thomas has been handling the overall project coordination and documentation. He also contributed to the development of both MaintainDB.java and QueryDB.java, ensuring they meet the project requirements.
 
+#### Github Link:
+
+The following is our github link where we manage all the source code.
+- https://github.com/R1chard04/CS348-Project
+
+To do a git pull:
+```
+git clone git@github.com:R1chard04/CS348-Project.git
+```
+
 #### Setuping:
 
 This is very similar to what's being done in the codesample component:
