@@ -1,4 +1,4 @@
-## CS348 Project
+## CS348 Project (Group 18)
 
 ### Milestone 0: Setup
 
