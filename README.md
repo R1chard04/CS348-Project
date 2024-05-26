@@ -17,7 +17,7 @@ For now the command line is being used, however, we will think more in details a
 
 These reponsibilites are what we could foresee at this point, and what every one will be going to do over the course of the project. As things get more complex, this is subject to change.
 
-1. *Richard Miao*: Richard has been focusing on setting up the database schema and ensuring the DB2 environment is correctly configured. He also implemented the initial version of the MaintainDB.java application.
+1. *Richard Miao*: Richard has been focusing on setting up the database schema and ensuring the DB2 environment is correctly configured, and on the front-end user interface. He also implemented the initial version of the MaintainDB.java application.
 
 2. *Jason Milad*: Jason has worked on integrating the JDBC driver and ensuring smooth connectivity between the Java applications and the DB2 database. He also contributed to developing the QueryDB.java application.
 
