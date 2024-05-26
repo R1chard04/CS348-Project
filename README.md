@@ -6,7 +6,7 @@
 
 **Warning:** The project is currently at the very beginning stage and a lot of the operations tend to be very shaky at this point.
 
-Our application is designed to interact with a DB2 database to manage and query food price data from the World Food Programme (WFP). The dataset we plan to use is the WFP Food Prices dataset, which contains information on food prices in various countries and markets. This could be used by statistican and econimists who are interested in researching the overall food price fluctuation in many different countries and other topics that are related to food price, time, and country. Our source of database is from *kaggle.com*.
+Our application is designed to interact with a **JDBC+DB2** database to manage and query food price data from the World Food Programme (WFP). The dataset we plan to use is the WFP Food Prices dataset, which contains information on food prices in various countries and markets. This could be used by statistican and econimists who are interested in researching the overall food price fluctuation in many different countries and other topics that are related to food price, time, and country. Our source of database is from *kaggle.com*.
 
 #### Platform and User Interface
 Our application will be deployed on school linux server for development and testing purposes, and it can be easily adapted to run on local machine if needed. The user interface for our application is command-line based, which allows users to interact with the application through a terminal. 
@@ -32,7 +32,7 @@ These reponsibilites are what we could foresee at this point, and what every one
 The following is our github link where we manage all the source code.
 - https://github.com/R1chard04/CS348-Project
 
-To do a git pull:
+To do a git clone:
 ```
 git clone git@github.com:R1chard04/CS348-Project.git
 ```
