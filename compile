@@ -1,9 +1,0 @@
-#!/bin/sh
-
-SRC_DIR="solutions"
-OUT_DIR="."
-
-javac $SRC_DIR/MaintainDB.java -d $OUT_DIR
-javac $SRC_DIR/QueryDB.java -d $OUT_DIR
-
-echo "Compilation finished."
