@@ -1,0 +1,5 @@
+backend/__pycache__
+backend/database.ini
+backend/.flaskenv
+backend/.env
+venv
