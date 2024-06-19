@@ -1,5 +1,9 @@
+# backend
 backend/__pycache__
 backend/database.ini
 backend/.flaskenv
 backend/.env
+backend/db_extractors/18100245.csv
+
+# virtual env
 venv

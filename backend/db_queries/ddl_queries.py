@@ -27,6 +27,8 @@ createIngredientTable = """
 createIngredientInRecipeTable = """
     CREATE TABLE Food_Prices (
         food_name VARCHAR(30) NOT NULL,
+        food_quantity INT NOT NULL,
+        food_metric INT NOT NULL,
         price INT NOT NULL,
         PRIMARY KEY (food_name)
     );
