@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-function App() {
+// Components
+// import Navbar from './Components/Navbar';
+import SearchBar from './Components/SearchBar';
+import Table from './Components/Table';
+
+const App = () => {
   const [message, setMessage] = useState('');
+  const [recipe, setRecipe] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/').then(response => response.json())
+    fetch('http://127.0.0.1:5000/', {
+      headers: {
+        'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': '*',
+      }
+    }).then(response => response.json())
       .then(data => {console.log(data); setMessage(data.msg);})
       .catch(error => console.error(error));
   }, []);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>HELLO</h1>
-        <h1>{message}</h1>
-      </header>
+      <h1>Recipe Search</h1>
+      <SearchBar setRecipe={setRecipe} />
+      {recipe.length > 0 && <Table rows={recipe} tableType="recipe" />}
     </div>
   );
 }

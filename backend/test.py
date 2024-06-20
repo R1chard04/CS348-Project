@@ -10,7 +10,7 @@ def richardTest():
 
     # extract_food_prices(conn, cur)
     # extract_food_nutrition(conn, cur)
-    extract_food_recipes(conn, cur)
+    # extract_food_recipes(conn, cur)
     
     cur.close()
     conn.close()

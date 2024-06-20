@@ -63,3 +63,19 @@ def r9_protein_content_get(recipeId):
         GROUP BY rID, name
         ORDER BY protein;
         """
+
+
+def getRecipeById(recipeId):
+    return f"""
+        SELECT * FROM recipes WHERE id = {recipeId};
+        """
+
+def getRecipeByName(recipeName):
+    return f"""
+        SELECT * FROM recipes WHERE recipe_name = '{recipeName}';
+        """
+
+def getSearchByName(search):
+    return f"""
+        SELECT * FROM recipes WHERE recipe_name LIKE '%{search}%';
+        """
