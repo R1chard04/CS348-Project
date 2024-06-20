@@ -5,6 +5,7 @@ backend/.flaskenv
 backend/.env
 backend/db_extractors/18100245.csv
 backend/db_extractors/NutritionTable.csv
+backend/db_extractors/recipes_w_search_terms.csv
 
 # virtual env
 venv
