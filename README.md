@@ -13,7 +13,7 @@ Richard Miao, Haibo Sun, Fred Sun, Thomas Wang, Jason Milad
 #### Setup:
 You can run this in your local system with the following steps:
 
-1. This application runs on PostgreSQL. Download [pgAdmin]([https://www.genome.gov/](https://www.pgadmin.org/download/)) for this. You will need to follow some instructions in downloading the software and configuring your username and password. When you are done, open the pgAdmin application. Create a (or use an existing) server group, and connect to a database. This needs to be open and running. Open a query tool, and run the DDL queries located in `backend/db_queries/ddl_queries.py` to create the tables. You will also need to create and set up your `backend/database.ini` and `backend/.flaskenv`:
+1. This application runs on PostgreSQL. Download [pgAdmin](https://www.pgadmin.org/download/) for this. You will need to follow some instructions in downloading the software and configuring your username and password. When you are done, open the pgAdmin application. Create a (or use an existing) server group, and connect to a database. This needs to be open and running. Open a query tool, and run the DDL queries located in `backend/db_queries/ddl_queries.py` to create the tables. You will also need to create and set up your `backend/database.ini` and `backend/.flaskenv`:
 
 `backend/database.ini`:
 ```
