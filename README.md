@@ -1,19 +1,18 @@
 ## CS348 Project (Group 18)
 
-#### About:
+### About:
+This is our GitHub repo for the CS348 Project. 
 
+### Platform and User Interface
+This system utilizes React.js for the front-end, Flask for the middleware/back-end, Linux as the OS, and PostgreSQL for the DBMS.
 
-#### Platform and User Interface
-
-
-#### Team Members:
+### Team Members:
 Richard Miao, Haibo Sun, Fred Sun, Thomas Wang, Jason Milad
 
-
-#### Setup:
+### Setup:
 You can run this in your local system with the following steps:
 
-1. This application runs on PostgreSQL. Download [pgAdmin](https://www.pgadmin.org/download/) for this. You will need to follow some instructions in downloading the software and configuring your username and password. When you are done, open the pgAdmin application. Create a (or use an existing) server group, and connect to a database. This needs to be open and running. Open a query tool, and run the DDL queries located in `backend/db_queries/ddl_queries.py` to create the tables. You will also need to create and set up your `backend/database.ini` and `backend/.flaskenv`:
+1. This application runs on PostgreSQL. Download [pgAdmin](https://www.pgadmin.org/download/) for this. Download all applications that as packaged, and configure your username and password when prompted. When you are done, open the pgAdmin application. Create a (or use an existing) server group, and connect to a database. This needs to be open and running. Open a query tool, and run the DDL queries located in `backend/db_queries/ddl_queries.py` to create the tables. You will also need to create and set up your `backend/database.ini` and `backend/.flaskenv`:
 
 `backend/database.ini`:
 ```
@@ -70,7 +69,7 @@ This hosts the backend server for dealing with database queries and data manipul
 
 Now, you may use the web application however you'd like!
 
-#### Features (R6a … R9b)
+### Features (R6a … R9b)
 
 **R6: Feature 1**
 
@@ -97,7 +96,7 @@ Filter by most and least expensive and nutritional recipes based on user prefere
 Description: 
 Provide more information about a specific recipe. In the final product, this will be when the user clicks on a recipe name and it shows all the information such as ingredients, steps for preparation, nutrition etc.
 
-#### Fancy Features (R12 - R16)
+### Fancy Features (R12 - R16)
 
 **R12: History Search**
 
@@ -120,7 +119,7 @@ Python facilitates advanced querying, such as suggesting recipes based on availa
 Using parameters like BMI and glucose intake, we employ models like Cox Proportional Model to predict life expectancy based on nutrient intake.
 
 
-#### Sources:
+### Sources:
 - https://www.kaggle.com/datasets/pyvalentin/full-food-nutrients-composition
 - https://open.canada.ca/data/en/dataset/8015bcc6-401d-4927-a447-bb35d5dfcc91/resource/ccf891a0-31b0-4887-993f-ed99dc38c28a
 - https://www.kaggle.com/datasets/shuyangli94/foodcom-recipes-with-search-terms-and-tags
