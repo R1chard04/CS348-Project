@@ -33,11 +33,12 @@ def r7_get(recipeId):
 # Price calculations per serving of the recipe, based on current market prices of each food.
 def r8_get(recipeId):
     return """
-        SELECT r.rID AS rID, r.name AS name, SUM(i.price_per_serving * ri.quantity) AS cost
+        SELECT r.rID AS rID, r.name AS name, SUM(p.price * ri.quantity / p.pquantity) AS cost
         FROM Recipes r 
-        JOIN ingredient_in_Recipe ri ON r.rID = ri.rID 
+        JOIN IngredientsInRecipe ri ON r.rID = ri.rID 
         JOIN ingredients ingredient ON ingredient.iID = ri.iID
-        WHERE r.recipe_id = ${recipeId}
+        JOIN IngredientCosts p ON ingredient.iname = p.pname
+        WHERE r.rID = INPUT
         GROUP BY rID, name;
         """
 

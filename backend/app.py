@@ -26,6 +26,7 @@ def hello():
 def getRecipe(id):
     cur.execute(getRecipeById(id))
     rows = cur.fetchall()
+    print(rows)
     return jsonify({'msg': rows})
 
 # Get recipe by name
@@ -35,6 +36,7 @@ def getRecipeName(name):
     decodedName = urllib.parse.unquote(name)
     cur.execute(getRecipeByName(decodedName))
     rows = cur.fetchall()
+    print(rows)
     return jsonify({'msg': rows})
 
 # Search by (similar) name
