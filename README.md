@@ -70,6 +70,55 @@ This hosts the backend server for dealing with database queries and data manipul
 
 Now, you may use the web application however you'd like!
 
+#### Features (R6a … R9b)
+
+**R6: Feature 1**
+
+Description: 
+Extract database recipes to determine which ones can be made provided a list of ingredients that a user has. If no recipes match all ingredients, the user can choose to list recipes that include as many of them as possible.
+
+**R7: Feature 2**
+
+Description:
+Total nutritional information of a recipe. For example, calorie count, grams of protein, carbohydrates, and fats, along with other facts seen on nutrition labels.
+
+**R8: Feature 3**
+
+Description: 
+Price calculations per serving of the recipe, based on current market prices of each food.
+
+**R9: Feature 4**
+
+Description: 
+Filter by most and least expensive and nutritional recipes based on user preferences and ingredient availability to the user. 
+
+**R9.5 Feature 5**
+
+Description: 
+Provide more information about a specific recipe. In the final product, this will be when the user clicks on a recipe name and it shows all the information such as ingredients, steps for preparation, nutrition etc.
+
+#### Fancy Features (R12 - R16)
+
+**R12: History Search**
+
+We use Redis as a cache system to record user search history, enabling real-time information display, query optimization, and database load reduction.
+
+**R13: Nutrient Calculation and Suggestion**
+
+Python is used to calculate and sum up the nutritional values of all ingredients in a recipe, offering users detailed insights into their caloric and nutrient intake.
+
+**R14: Data Visualization**
+
+Create visualizations to show users’ daily caloric and nutrient intake, compare it against recommended dietary allowances, and use ML algorithms like clustering to suggest new recipes based on eating patterns.
+
+**R15: Querying Capabilities**
+
+Python facilitates advanced querying, such as suggesting recipes based on available ingredients, using libraries like psycopg2 for PostgreSQL interaction.
+
+**R16: Predict User Longevity Based on Current Eating Habits**
+
+Using parameters like BMI and glucose intake, we employ models like Cox Proportional Model to predict life expectancy based on nutrient intake.
+
 
 #### Sources:
 - https://www.kaggle.com/datasets/pyvalentin/full-food-nutrients-composition
