@@ -100,6 +100,10 @@ def r9_protein_content_get(recipeId):
         ORDER BY total_protein DESC;
         """
 
+def getAllRecipes():
+    return """
+        SELECT * FROM recipes;
+        """
 
 def getRecipeById(recipeId):
     return f"""
