@@ -68,7 +68,7 @@ def r9_protein_content_get(recipeId):
 
 def getRecipeById(recipeId):
     return f"""
-        SELECT * FROM recipes WHERE id = {recipeId};
+        SELECT * FROM Recipes WHERE rid = {recipeId};
         """
 
 def getRecipeByName(recipeName):

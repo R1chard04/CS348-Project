@@ -6,6 +6,9 @@ backend/.env
 backend/db_extractors/18100245.csv
 backend/db_extractors/NutritionTable.csv
 backend/db_extractors/recipes_w_search_terms.csv
+backend/db_queries/__pycache__/
+backend/db_extractors/__pycache__/
+*.venv/
 
 # virtual env
 venv
