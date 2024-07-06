@@ -2,7 +2,7 @@
 
 createRecipeTable = """
     CREATE TABLE Recipes (
-        id INT NOT NULL,
+        rId INT NOT NULL,
         recipe_name VARCHAR(100) NOT NULL,
         rdescription VARCHAR(200),
         ringredients TEXT [] NOT NULL,
@@ -17,11 +17,11 @@ createSearchTermsTable = """
         rId INT NOT NULL,
         terms VARCHAR(20) NOT NULL,
         PRIMARY KEY (rId, terms),
-        FOREIGN KEY (rId) REFERENCES Recipes(id)
+        FOREIGN KEY (rId) REFERENCES Recipes(rId)
     );
 """
 createIngredientTable = """
-        CREATE TABLE Ingredients (
+    CREATE TABLE Ingredients (
         iname VARCHAR(50) NOT NULL,
         protein FLOAT,
         carb FLOAT,
@@ -37,16 +37,16 @@ createIngredientInRecipeTable = """
     CREATE TABLE Prices (
         pname VARCHAR(30) NOT NULL,
         pquantity INT NOT NULL,
-        pmetric INT NOT NULL,
+        pmetric VARCHAR(20) NOT NULL,
         price FLOAT NOT NULL,
-        PRIMARY KEY (food_name)
+        PRIMARY KEY (pname)
     );
 """
 
 createIngredientCostsRelation = """
     CREATE TABLE IngredientCosts (
         iname VARCHAR(50) NOT NULL,
-        pname FLOAT NOT NULL,
+        pname VARCHAR(50) NOT NULL,
         PRIMARY KEY (iname, pname),
         FOREIGN KEY (iname) REFERENCES Ingredients(iname),
         FOREIGN KEY (pname) REFERENCES Prices(pname)
@@ -55,12 +55,12 @@ createIngredientCostsRelation = """
 
 createIngredientsInRecipeRelation = """
     CREATE TABLE IngredientsInRecipe (
-        rId INT NOT NULL,
+        recipeId INT NOT NULL,
         iname VARCHAR(50) NOT NULL,
         unit_of_measure VARCHAR(15) NOT NULL,
         quantity FLOAT NOT NULL,
         PRIMARY KEY (recipeId, iname),
-        FOREIGN KEY (recipeId) REFERENCES Recipes(id),
+        FOREIGN KEY (recipeId) REFERENCES Recipes(rId),
         FOREIGN KEY (iname) REFERENCES Ingredients(iname)
     );
 """
