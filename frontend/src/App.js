@@ -18,7 +18,7 @@ const App = () => {
         'Access-Control-Allow-Headers': '*',
       }
     }).then(response => response.json())
-      .then(data => {console.log(data); setMessage(data.msg);})
+      .then(data => {console.log(data.msg); setRecipe(data.msg);})
       .catch(error => console.error(error));
   }, []);
 

@@ -30,7 +30,7 @@ const priceKeysMap = {
     "price": "float"
 };
 
-const PAGINATION_SIZE = 3;
+const PAGINATION_SIZE = 5;
 
 
 const Table = ({ rows, tableType }) => {
@@ -38,38 +38,49 @@ const Table = ({ rows, tableType }) => {
 
     const useMap = tableType === "recipe" ? recipeKeysMap : tableType === "nutrition" ? nutritionKeysMap : priceKeysMap;
 
+    // console.log('rows:', rows);
 
     return (
         <div className="table-root-container">
-            <h2>{`${rows.length} results found...`}</h2>
+            <h2>{`${rows.length} result${rows.length !== 1 ? 's' : ''} found...`}</h2>
             <table className="table-container">
                 <thead className="table-header">
                     <tr className="table-header-row">
                         {Object.keys(useMap).map((key, index) => (
-                            <th className="table-header-data" key={index}>{key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ')}</th>
+                            <th className="table-header-data" key={index}>
+                                {key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ')}
+                            </th>
                         ))}
                     </tr>
                 </thead>
                 <tbody className="table-body">
-                    {rows.slice(index, index + PAGINATION_SIZE).map((row, index) => (
-                        <tr className="table-body-row" key={index}>
-                            {Object.keys(useMap).map((key, index) => (
-                                <td className="table-body-data" key={index}>
-                                    {useMap[key] != "array" ? row[index] : row[index]}
+                    {rows.slice(index, index + PAGINATION_SIZE).map((row, rowIndex) => (
+                        <tr className={`table-body-row ${rowIndex % 2 === 0 ? 'even' : 'odd'}`} key={rowIndex}>
+                            {Object.keys(useMap).map((key, cellIndex) => (
+                                <td className="table-body-data" key={cellIndex}>
+                                    {useMap[key] !== "array" ? row[cellIndex] : row[cellIndex] + ","}
                                 </td>
                             ))}
                         </tr>
                     ))}
                 </tbody>
             </table>
-            {index + PAGINATION_SIZE < rows.length && 
+            <div>
                 <button
                     className="table-button"
-                    onClick={() => setIndex(index + PAGINATION_SIZE)}
+                    onClick={() => setIndex(index+1 > PAGINATION_SIZE ? index - PAGINATION_SIZE : index)}
                 >
-                    Next Page ({Math.floor(index / PAGINATION_SIZE)}/{Math.ceil(rows.length / PAGINATION_SIZE)})
+                    Last Page
                 </button>
-            }
+                ({Math.floor(index / PAGINATION_SIZE) + 1}/{Math.ceil(rows.length / PAGINATION_SIZE)})
+                <button
+                    className="table-button"
+                    onClick={() => setIndex(index + PAGINATION_SIZE < rows.length ? index + PAGINATION_SIZE : index)}
+                >
+                    Next Page
+                </button>
+            </div>
+            
         </div>
     );
 }

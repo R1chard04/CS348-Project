@@ -13,6 +13,12 @@ const SearchBar = ({ setRecipe }) => {
     const [search, setSearch] = useState('');
     const [val, setVal] = useState('id');
 
+    useEffect(() => {
+        if (search === '') {
+            setRecipe([]);
+        }
+    }, [search]);
+    
     const handleClick = async () => {
         let encodedSearch = encodeURIComponent(search);
         await fetch(`http://127.0.0.1:5000/${valToEndpoint[val]}/${encodedSearch}`).then(response => response.json())
