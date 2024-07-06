@@ -1,12 +1,15 @@
-SELECT r.rID AS rID, r.name AS name, 
-    (
-        SELECT SUM(p.price * ri.quantity / p.pquantity)
-        FROM IngredientsInRecipe ri 
-        JOIN ingredients ingredient ON ingredient.iID = ri.iID
-        JOIN IngredientCosts p ON ingredient.iname = p.pname
-        WHERE ri.rID = r.rID
+SELECT r.rID AS rID, r.recipe_name AS name, 
+    ROUND(
+        CAST(
+            (
+                SELECT SUM(p.price * ri.quantity / p.pquantity)
+                FROM IngredientsInRecipe ri 
+                JOIN Ingredients ingredient ON ingredient.iname = ri.iname
+                JOIN Prices p ON ingredient.iname = p.pname
+                WHERE ri.recipeId = r.rID
+            ) AS NUMERIC
+        ), 2
     ) AS cost
 FROM Recipes r
-WHERE r.rID = 'Egg'
-GROUP BY r.rID, r.name;
-
+WHERE r.rID = 1
+GROUP BY r.rID, r.recipe_name;

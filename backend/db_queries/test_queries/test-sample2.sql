@@ -1,12 +1,15 @@
 SELECT 
-    r.rID AS rID, 
-    r.name AS name, 
-    SUM(i.calories * ri.quantity) AS calories, 
-    SUM(i.protein_grams * ri.quantity) AS protein, 
-    SUM(i.carbs_grams * ri.quantity) AS carbs, 
-    SUM(i.fat_grams * ri.quantity) AS fat
+    r.rID AS recipe_id, 
+    r.recipe_name AS recipe_name, 
+    (SUM((i.protein * uc.conversion_factor / 100) * ri.quantity) * 4 + 
+     SUM((i.carb * uc.conversion_factor / 100) * ri.quantity) * 4 + 
+     SUM((i.fat * uc.conversion_factor / 100) * ri.quantity) * 9) AS calories,
+    SUM((i.protein * uc.conversion_factor / 100) * ri.quantity) AS total_protein, 
+    SUM((i.carb * uc.conversion_factor / 100) * ri.quantity) AS total_carbs, 
+    SUM((i.fat * uc.conversion_factor / 100) * ri.quantity) AS total_fat
 FROM Recipes r 
-JOIN ingredient_in_Recipe ri ON r.rID = ri.rID 
-JOIN ingredients ingredient ON ingredient.iID = ri.iID
-WHERE r.recipe_id = 1
-GROUP BY rID, name;
+JOIN IngredientsInRecipe ri ON r.rID = ri.recipeId 
+JOIN Ingredients i ON i.iname = ri.iname
+JOIN UnitConversions uc ON ri.unit_of_measure = uc.unit
+WHERE r.rID = 1
+GROUP BY r.rID, r.recipe_name;
