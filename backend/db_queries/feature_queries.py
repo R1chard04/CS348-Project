@@ -72,7 +72,7 @@ def getAllRecipes():
 
 def getRecipeById(recipeId):
     return f"""
-        SELECT * FROM recipes WHERE rId = {recipeId};
+        SELECT * FROM Recipes WHERE rid = {recipeId};
         """
 
 def getRecipeByName(recipeName):
