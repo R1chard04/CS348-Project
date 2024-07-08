@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+
 import './App.css';
 
 // Components
 // import Navbar from './Components/Navbar';
 import SearchBar from './Components/SearchBar';
 import Table from './Components/Table';
+import ListBar from './Components/ListBar';
 
 const App = () => {
   const [message, setMessage] = useState('');
@@ -27,6 +29,7 @@ const App = () => {
       <h1>Recipe Search</h1>
       <SearchBar setRecipe={setRecipe} />
       {recipe.length > 0 && <Table rows={recipe} tableType="recipe" />}
+      {/* <ListBar itemList={['ab', 'cd', 'ef', 'gh']} /> */}
     </div>
   );
 }
