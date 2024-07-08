@@ -12,6 +12,7 @@ const valToEndpoint = {
 const SearchBar = ({ setRecipe }) => {
     const [search, setSearch] = useState('');
     const [val, setVal] = useState('id');
+    const [err, setErr] = useState('');
 
     useEffect(() => {
         if (search === '') {
@@ -22,9 +23,9 @@ const SearchBar = ({ setRecipe }) => {
     const handleClick = async () => {
         let encodedSearch = encodeURIComponent(search);
         await fetch(`http://127.0.0.1:5000/${valToEndpoint[val]}/${encodedSearch}`).then(response => response.json())
-            .then(data => {console.log(data); setRecipe(data.msg);})
+            .then(data => {console.log(data); setRecipe(data.msg); setErr(data.error); })
             .catch(error => console.error(error));
-    }
+    };
 
 
     return (
@@ -45,7 +46,9 @@ const SearchBar = ({ setRecipe }) => {
                     onChange={(e) => setSearch(e.target.value)} 
                 />
                 <button onClick={handleClick}>Search</button>
+                <p>{err && err}</p>
             </div>
+            
         </div>
     );
 }

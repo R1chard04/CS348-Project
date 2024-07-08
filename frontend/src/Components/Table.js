@@ -38,7 +38,7 @@ const Table = ({ rows, tableType }) => {
 
     const useMap = tableType === "recipe" ? recipeKeysMap : tableType === "nutrition" ? nutritionKeysMap : priceKeysMap;
 
-    // console.log('rows:', rows);
+    console.log('rows:', rows);
 
     return (
         <div className="table-root-container">
@@ -54,7 +54,7 @@ const Table = ({ rows, tableType }) => {
                     </tr>
                 </thead>
                 <tbody className="table-body">
-                    {rows.slice(index, index + PAGINATION_SIZE).map((row, rowIndex) => (
+                    {rows.length && rows.slice(index, index + PAGINATION_SIZE).map((row, rowIndex) => (
                         <tr className={`table-body-row ${rowIndex % 2 === 0 ? 'even' : 'odd'}`} key={rowIndex}>
                             {Object.keys(useMap).map((key, cellIndex) => (
                                 <td className="table-body-data" key={cellIndex}>

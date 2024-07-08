@@ -77,7 +77,7 @@ def getRecipeById(recipeId):
 
 def getRecipeByName(recipeName):
     return f"""
-        SELECT * FROM recipes WHERE recipe_name = '{recipeName}';
+        SELECT * FROM recipes WHERE recipe_name LIKE '%{recipeName}%';
         """
 
 def getSearchByName(search):

@@ -26,6 +26,10 @@ def hello():
 @app.route('/getrecipe/<id>', methods=['GET'])
 @cross_origin()
 def getRecipe(id):
+    if not id.isnumeric():
+        return jsonify({
+            'msg': [],
+            'error': 'Invalid recipe ID'})
     cur.execute(getRecipeById(id))
     rows = cur.fetchall()
     print(rows)
