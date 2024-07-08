@@ -1,0 +1,22 @@
+.dropdown {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: white;
+}
+
+.dropdown-row {
+    padding: 8px 12px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.dropdown-row:last-child {
+    border-bottom: none;
+}
+
+.dropdown-row:hover {
+    background-color: #f1f1f1;
+}
