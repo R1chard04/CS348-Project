@@ -1,4 +1,5 @@
-SELECT r.rID, r.rdescription, r.recipe_name, r.ringredients, r.rsteps, r.rserving_size, r.rservings, (SUM((i.protein * uc.conversion_factor / 100) * ri.quantity) * 4 + 
+SELECT r.recipe_name, r.rdescription, r.ringredients, r.rsteps, r.rserving_size, r.rservings, 
+    (SUM((i.protein * uc.conversion_factor / 100) * ri.quantity) * 4 + 
      SUM((i.carb * uc.conversion_factor / 100) * ri.quantity) * 4 + 
      SUM((i.fat * uc.conversion_factor / 100) * ri.quantity) * 9) AS calories,
     SUM((i.protein * uc.conversion_factor / 100) * ri.quantity) AS total_protein, 
