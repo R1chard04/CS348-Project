@@ -41,7 +41,7 @@ const MainPage = () => {
     return (
         <div className="mainpage-container">
             <button onClick={handleClick}>{isAdvancedSearch ? "Advanced Search" : "Basic Search"}</button>
-            {isAdvancedSearch ? <ListBar itemList={ingredients}/> : <SearchBar setRecipe={setRecipe} />}
+            {isAdvancedSearch ? <ListBar itemList={ingredients} setRecipe = {setRecipe}/> : <SearchBar setRecipe={setRecipe} />}
             {recipe.length > 0 && <Table rows={recipe} tableType="recipe" />}
         </div>
     );
