@@ -22,7 +22,11 @@ const RecipeAdder = () => {
 
     const onAddRecipe = () => {
         // TODO: ADD ENDPOINT TO ADD RECIPE INTO DATABASE 
-        console.log("adding: ", ingredients); 
+        console.log("recipe name: ", recipeName);
+        console.log("servings: ", servings);   
+        console.log("serving size: ", servingSize);
+        console.log("steps: ", steps);
+        console.log("ingredients: ", ingredients); 
     }
 
     const IngredientItems = ({ingredientName}) => {
@@ -38,7 +42,7 @@ const RecipeAdder = () => {
         return (
             <div className="itemDiv" >
                 {ingredientName}
-                <button onClick={() => removeSelf()} style = {{ backgroundColor: '#FFCCCB' }}>X</button>
+                <button className = "removeSelfButton" onClick={() => removeSelf()}>X</button>
             </div>
         );
     };
@@ -75,9 +79,9 @@ const RecipeAdder = () => {
 
             <div className="stepsContainer">
                 <div>Steps</div>
-                <input className = "stepsInput"
+                <textarea className = "stepsInput"
                         type="text"
-                        placeholder="Add Serving Count"
+                        placeholder="Add Steps"
                         value={steps}
                         onChange={(e) => setSteps(e.target.value)}
                     />
