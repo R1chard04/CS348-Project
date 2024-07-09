@@ -2,14 +2,14 @@
 
 # Intelligently extract database recipes to determine which ones can be made provided a list of ingredients that a user has. If no recipes match all ingredients, the user can choose to list recipes that include as many of them as possible.
 def r6_get(userIngredients):
-    ingredients_query = " UNION SELECT '".join(userIngredients) + "'"
+    ingredients_query = " UNION SELECT ".join(f"'{ingredient}'" for ingredient in userIngredients)
     
     return f"""
         WITH input AS 
         (
             SELECT '{userIngredients[0]}' AS ingredient 
             UNION 
-            SELECT '{ingredients_query}'
+            SELECT {ingredients_query}
         )
         SELECT DISTINCT r.rID AS rID, r.recipe_name AS name, COUNT(*) AS cnt
         FROM Recipes r 

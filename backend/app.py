@@ -62,7 +62,7 @@ def getAllIngredients():
 @app.route('/getrecipesbyingredients/<ingredients>', methods=['GET'])
 @cross_origin()
 def getRecipesByIngredients(ingredients):
-    decodedIngredients = urllib.parse.unquote(ingredients)
+    decodedIngredients = urllib.parse.unquote(ingredients).split(',')
     cur.execute(r6_get(decodedIngredients))
     rows = cur.fetchall()
     print(rows)

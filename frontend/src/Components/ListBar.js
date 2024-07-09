@@ -7,6 +7,23 @@ const ListBar = ({itemList}) => {
     const allItems = JSON.parse(JSON.stringify(itemList));
     const [search, setSearch] = useState('');
     const [filteredItems, setFilteredItems] = useState(itemList);
+    const [recipes, setRecipes] = useState([]);
+
+    const findRecipesWithIngredient = (ingredients) => {
+        console.log('Finding recipes with ingredients: ', ingredients.join(','))
+        fetch(`http://127.0.0.1:5000/getrecipesbyingredients/${ingredients.join(',')}`, {
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/',
+                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                    'Access-Control-Allow-Headers': '*',
+                }
+            }).then(response => response.json())
+                .then(data => {console.log(data.msg); setRecipes(data.msg);})
+                .catch(error => console.error(error));
+      }
+    
+    // Example usage:
+    // findRecipesWithIngredient(['egg', 'bacon', 'romaine lettuce', 'spaghetti']);
 
     useEffect(() => {
         if(search === '') {
