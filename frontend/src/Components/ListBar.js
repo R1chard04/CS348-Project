@@ -4,7 +4,8 @@ import './ListBar.css';
 
 const ListBar = ({itemList}) => {
     // searchbar should check if the item is matching in the list
-    const allItems = JSON.parse(JSON.stringify(itemList));
+    const allItems = JSON.parse(JSON.stringify(itemList)).flat();
+    console.log(allItems,"hihHIhihiHIHIh")
     const [search, setSearch] = useState('');
     const [filteredItems, setFilteredItems] = useState(itemList);
     const [recipes, setRecipes] = useState([]);
@@ -29,6 +30,7 @@ const ListBar = ({itemList}) => {
         if(search === '') {
             setFilteredItems(allItems);
         } else {
+            console.log(allItems);
             setFilteredItems(allItems.filter(item => item.toLowerCase().includes(search.toLowerCase())));
         }
         
