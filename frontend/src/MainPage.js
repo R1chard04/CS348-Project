@@ -7,12 +7,12 @@ import ListBar from './Components/ListBar';
 const MainPage = () => {
     const [message, setMessage] = useState('');
     const [recipe, setRecipe] = useState([]);
-    const [isAdvancedSearch, setIsAdvancedSearch] = useState(false);
+    const [searchOption, setSearchOption] = useState("Basic Search");
     const [ingredients, setIngredients] = useState([]);
 
-    const handleClick = () => {
-        setIsAdvancedSearch(!isAdvancedSearch);
-    }
+    const handleClick = (val) => {
+        setSearchOption(val);
+    };
 
     useEffect(() => {
         fetch('http://127.0.0.1:5000/', {
@@ -36,12 +36,16 @@ const MainPage = () => {
                 .then(data => {console.log(data.msg); setIngredients(data.msg);})
                 .catch(error => console.error(error));
         }
-    }, []);
+    }, [ingredients.length]); // Dependencies
 
     return (
         <div className="mainpage-container">
-            <button onClick={handleClick}>{isAdvancedSearch ? "Advanced Search" : "Basic Search"}</button>
-            {isAdvancedSearch ? <ListBar itemList={ingredients} setRecipe = {setRecipe}/> : <SearchBar setRecipe={setRecipe} />}
+            <select id="dropdown" value={searchOption} onChange={e => handleClick(e.target.value)}>
+                <option value="Basic Search">Basic Search</option>
+                <option value="Advanced Search">Advanced Search</option>
+            </select>
+            {searchOption === "Advanced Search" && <ListBar itemList={ingredients} setRecipe={setRecipe} /> }
+            {searchOption === "Basic Search" &&  <SearchBar setRecipe={setRecipe} /> }
             {recipe.length > 0 && <Table rows={recipe} tableType="recipe" />}
         </div>
     );
