@@ -37,6 +37,23 @@ const ListBar = ({ itemList, setRecipe }) => {
         }
     }, [search]);
 
+    const findRecipesWithIngredient = (ingredients) => {
+        console.log('Finding recipes with ingredients: ', ingredients.join(','))
+        fetch(`http://127.0.0.1:5000/getrecipesbyingredients/${ingredients.join(',')}`, {
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/',
+                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                    'Access-Control-Allow-Headers': '*',
+                }
+            }).then(response => response.json())
+                .then(data => { console.log(data.msg); setRecipe(data.msg);})
+                .catch(error => console.error(error));
+      }
+
+    const onSearch = () => {
+        findRecipesWithIngredient(ingredients);
+    }
+
     const onAdd = (addItem) => {
         setIngredients(ingredients => [...ingredients, addItem]);
         setSearch('');
@@ -52,6 +69,7 @@ const ListBar = ({ itemList, setRecipe }) => {
                     onChange={(e) => setSearch(e.target.value)}
                 />
                 <button onClick={() => onAdd(search)}>Add</button>
+                <button onClick = {() => onSearch()}>Search</button> 
             </div>
             <div className="dropdown">
                 {filteredItems.map((item, index) => (
