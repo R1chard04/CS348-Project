@@ -8,7 +8,7 @@ const ListBar = ({ itemList, setRecipe }) => {
     const [filteredItems, setFilteredItems] = useState([]);
     const [ingredients, setIngredients] = useState([]);
 
-    const ListBarItem = ({ itemName, id }) => {
+    const ListBarItem = ({ itemName }) => {
         const removeSelf = () => {
             let newList = [...ingredients]; // Create a new array reference
             const idx = newList.indexOf(itemName);
@@ -19,7 +19,7 @@ const ListBar = ({ itemList, setRecipe }) => {
         };
 
         return (
-            <div className="itemDiv" id={id}>
+            <div className="itemDiv">
                 {itemName}
                 <button onClick={() => removeSelf()} style = {{ backgroundColor: '#FFCCCB' }}>X</button>
             </div>
@@ -79,7 +79,7 @@ const ListBar = ({ itemList, setRecipe }) => {
 
             <div className="itemSection">
                 {ingredients.map((item, index) => (
-                    <ListBarItem key={index} itemName={item} id={index} />
+                    <ListBarItem key={index} itemName={item} />
                 ))}
             </div>
         </div>
