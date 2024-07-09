@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import './App.css';
 
 // Components
-// import Navbar from './Components/Navbar';
-import SearchBar from './Components/SearchBar';
-import Table from './Components/Table';
-import ListBar from './Components/ListBar';
+import MainPage from './MainPage';
+import Navbar from './Components/Navbar';
 
 const App = () => {
   const [message, setMessage] = useState('');
@@ -25,12 +24,18 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
-      <h1>Recipe Search</h1>
-      <SearchBar setRecipe={setRecipe} />
-      {recipe.length > 0 && <Table rows={recipe} tableType="recipe" />}
-      {/* <ListBar itemList={['ab', 'cd', 'ef', 'gh']} /> */}
-    </div>
+    <Router>
+      <div className="App">
+        <div className="navbar-container">
+          <Navbar className="app-navbar"/>
+        </div>
+        <h1>Recipe Search</h1>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/advanced-search" />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

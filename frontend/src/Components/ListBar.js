@@ -4,7 +4,7 @@ import './ListBar.css';
 
 const ListBar = ({itemList}) => {
     // searchbar should check if the item is matching in the list
-    const allItems = itemList; 
+    const allItems = JSON.parse(JSON.stringify(itemList));
     const [search, setSearch] = useState('');
     const [filteredItems, setFilteredItems] = useState(itemList);
 
@@ -15,7 +15,7 @@ const ListBar = ({itemList}) => {
             setFilteredItems(allItems.filter(item => item.toLowerCase().includes(search.toLowerCase())));
         }
         
-    }, [search])
+    }, [search]);
 
     useEffect (() => {
         
@@ -44,7 +44,7 @@ const ListBar = ({itemList}) => {
         </div>
 
 
-    )
-}
+    );
+};
 
-export default ListBar
+export default ListBar;
