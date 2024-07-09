@@ -115,6 +115,16 @@ def r10_get(recipeId):
         WHERE r.rID = {recipeId}
         GROUP BY r.rID, r.recipe_name;
         """
+def r11_add_new_recipe(recipe_name, rdescription, ringredients, rserving_size, rservings, rsteps, ingredients):
+    return f"""
+        WITH new_recipe AS (
+            INSERT INTO Recipes (recipe_name, rdescription, ringredients, rserving_size, rservings, rsteps)
+            VALUES ('{recipe_name}', '{rdescription}', '{ringredients}', {rserving_size}, {rservings}, '{rsteps}')
+            RETURNING rId
+        )
+        INSERT INTO IngredientsInRecipe (recipeId, iname, unit_of_measure, quantity)
+        VALUES {', '.join([f"((SELECT rId FROM new_recipe), '{iname}', '{unit_of_measure}', {quantity})" for iname, unit_of_measure, quantity in ingredients])};
+        """
 
 def getAllRecipes():
     return """SELECT * FROM recipes;"""
