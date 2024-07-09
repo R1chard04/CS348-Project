@@ -1,0 +1,157 @@
+/* Container for the entire component */
+.add-ingredient-container {
+    display: grid;
+    grid-template-rows: repeat(5, auto);
+    gap: 20px;
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 15px; 
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+/* Styling for the name container */
+.nameContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.nameContainer div {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.nameContainer input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Styling for the serving container */
+.servingContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.servingContainer div {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.servingContainer input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Styling for the steps container */
+.stepsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.stepsContainer div {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.stepsContainer input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    height: 90px; /* Height of the textarea */
+    overflow-y: auto; /* Vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    white-space: pre-wrap; /* Preserve whitespace and wrap text */
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+    vertical-align: top; /* Align text to the top */
+}
+
+/* Styling for the add-bar */
+.add-bar {
+    display: flex;
+    gap: 10px;
+}
+
+.add-bar input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.add-bar button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Styling for the item section */
+.itemSection {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.itemDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.itemDiv button {
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.itemDiv:hover {
+    background-color: #e1e1e1;
+}
+
+.addFullRecipeButton {
+    padding: 12px 24px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.addFullRecipeButton:hover {
+    background-color: #003d80;
+    transform: translateY(-2px);
+}
+
+.addFullRecipeButton:active {
+    background-color: #002d5c;
+    transform: translateY(0);
+}
+

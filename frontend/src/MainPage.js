@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SearchBar from './Components/SearchBar';
 import Table from './Components/Table';
 import ListBar from './Components/ListBar';
+import RecipeAdder from './Components/RecipeAdder';
 
 const nutritionSearchValToEndpoint = {
     id: 'getmacrosbyid', 
@@ -71,6 +72,7 @@ const MainPage = () => {
                 <option value="Price Search">Price Search</option>
                 <option value="Most Expensive Search">Most Expensive Search</option>
                 <option value="Most Protein Search">Most Protein Search</option>
+                <option value="Create Recipe">Create A Recipe</option>
             </select>
             {searchOption === 'Basic Search' && <SearchBar setRecipe={setRecipe} valToEndpoint={basicSearchValToEndpoint} />}
             {searchOption === 'Advanced Search' && <ListBar itemList={ingredients} setRecipe={setRecipe} />}
@@ -78,6 +80,7 @@ const MainPage = () => {
             {searchOption === 'Price Search' && <SearchBar setRecipe={setRecipe} valToEndpoint={priceSearchValToEndpoint} />}
             {searchOption === 'Most Expensive Search' && <ListBar setRecipe={setRecipe} itemList={ingredients}/>}
             {searchOption === 'Most Protein Search' && <ListBar setRecipe={setRecipe} itemList={ingredients}/>}
+            {searchOption === 'Create Recipe' && <RecipeAdder/>}
 
             {recipe.length > 0 && searchOption === 'Basic Search' && <Table rows={recipe} tableType="recipe" />}
             {recipe.length > 0 && searchOption === 'Advanced Search' && <Table rows={recipe} tableType="ingredients" />}

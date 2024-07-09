@@ -14,14 +14,12 @@ const recipeKeysMap = {
     "steps": "varchar"
 };
 const nutritionKeysMap = {
-    "nutrition_name": "varchar", 
-    "protein": "float", 
-    "carb": "float", 
-    "fat": "float", 
-    "sugar": "float", 
-    "sodium": "float", 
-    "vitamin_d": "float", 
-    "vitamin_e": "float"
+    "recipe_id": "int", 
+    "recipe_name": "varchar", 
+    "calories": "float", 
+    "total_protein": "float", 
+    "total_carbs": "float", 
+    "total_fat": "float",
 };
 const priceKeysMap = {
     "food_name": "varchar", 
@@ -35,6 +33,7 @@ const ingredientKeysMap = {
     "recipe_name": "varchar", 
     "count": "int",
 }
+
 
 const PAGINATION_SIZE = 5;
 
