@@ -80,7 +80,7 @@ const MainPage = () => {
             {searchOption === 'Most Protein Search' && <ListBar setRecipe={setRecipe} itemList={ingredients}/>}
 
             {recipe.length > 0 && searchOption === 'Basic Search' && <Table rows={recipe} tableType="recipe" />}
-            {recipe.length > 0 && searchOption === 'Advanced Search' && <Table rows={recipe} tableType="recipe" />}
+            {recipe.length > 0 && searchOption === 'Advanced Search' && <Table rows={recipe} tableType="ingredients" />}
             {recipe.length > 0 && searchOption === 'Nutrition Search' && <Table rows={recipe} tableType="nutrition" />}
             {recipe.length > 0 && searchOption === 'Price Search' && <Table rows={recipe} tableType="price" />}
             {recipe.length > 0 && searchOption === 'Most Expensive Search' && <Table rows={recipe} tableType="price" />}

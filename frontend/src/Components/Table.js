@@ -30,13 +30,19 @@ const priceKeysMap = {
     "price": "float"
 };
 
+const ingredientKeysMap = {
+    "id": "int", 
+    "recipe_name": "varchar", 
+    "count": "int",
+}
+
 const PAGINATION_SIZE = 5;
 
 
 const Table = ({ rows, tableType }) => {
     const [index, setIndex] = useState(0);
 
-    const useMap = tableType === "recipe" ? recipeKeysMap : tableType === "nutrition" ? nutritionKeysMap : priceKeysMap;
+    const useMap = tableType === "recipe" ? recipeKeysMap : tableType === "nutrition" ? nutritionKeysMap : tableType === "ingredients" ? ingredientKeysMap : priceKeysMap;
 
     console.log('rows:', rows);
 
