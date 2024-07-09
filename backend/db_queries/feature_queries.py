@@ -37,7 +37,7 @@ def r7_get(recipeId):
         JOIN IngredientsInRecipe ri ON r.rID = ri.recipeId 
         JOIN Ingredients i ON i.iname = ri.iname
         JOIN UnitConversions uc ON ri.unit_of_measure = uc.unit
-        WHERE r.rID = ${recipeId}
+        WHERE r.rID = {recipeId}
         GROUP BY r.rID, r.recipe_name;
         """
 
