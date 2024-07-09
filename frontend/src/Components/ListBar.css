@@ -1,7 +1,9 @@
 /* Ensure the basic styles for the container */
 .search-bar-container {
-    position: relative;
-    width: 500px;
+    display: grid;
+    grid-template-rows: auto auto auto; /* Define rows for search bar, dropdown, and item section */
+    gap: 10px; /* Space between elements */
+    width: 300px;
     margin: 0 auto;
 }
 
@@ -9,7 +11,6 @@
 .search-bar {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px; /* Space between search bar and dropdown */
 }
 
 .search-bar input[type="text"] {
@@ -33,9 +34,7 @@
 
 /* Basic styles for the dropdown */
 .dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
+    position: relative;
     width: 100%;
     max-height: 200px;
     overflow-y: auto;
@@ -67,7 +66,9 @@
 
 /* Styles for item section and item div */
 .itemSection {
-    margin-top: 10px; /* Space between search bar and item section */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .itemDiv {
@@ -75,7 +76,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    margin-bottom: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #f9f9f9;
