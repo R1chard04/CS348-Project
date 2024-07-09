@@ -3,13 +3,12 @@ import Link from 'react-router-dom';
 
 // CSS
 import './SearchBar.css';
+// const valToEndpoint = {
+//     id: 'getmacrosbyid', 
+//     recipe_name: 'getrecipebyname',
+// }
 
-const valToEndpoint = {
-    id: 'getrecipe',
-    recipe_name: 'getrecipebyname',
-}
-
-const SearchBar = ({ setRecipe }) => {
+const SearchBar = ({ setRecipe, valToEndpoint }) => {
     const [search, setSearch] = useState('');
     const [val, setVal] = useState('id');
     const [err, setErr] = useState('');
@@ -22,6 +21,7 @@ const SearchBar = ({ setRecipe }) => {
     
     const handleClick = async () => {
         let encodedSearch = encodeURIComponent(search);
+        console.log(val, valToEndpoint);
         await fetch(`http://127.0.0.1:5000/${valToEndpoint[val]}/${encodedSearch}`).then(response => response.json())
             .then(data => {console.log(data); setRecipe(data.msg); setErr(data.error); })
             .catch(error => console.error(error));
