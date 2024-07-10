@@ -3,10 +3,12 @@ import re
 
 usedFoods = set()
 
-def extract_food_nutrition(conn, cursor):
+def extract_food_nutrition(conn, cursor, isProdDatabase=False):
     df = pd.read_csv('db_extractors/NutritionTable.csv')
 
-    for _, row in df.iterrows():
+    for index, row in df.iterrows():
+        if not isProdDatabase and index % 1000 != 0:
+            continue
         print('row:', row['alim_nom_eng'])
 
         insertRow = []

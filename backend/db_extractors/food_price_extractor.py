@@ -5,10 +5,13 @@ metrics = ('kilogram', 'millilitre', 'gram', 'litre', 'dozen')
 columns = ['food_name', 'food_quantity', 'food_metric', 'price']
 usedFoods = set()
 
-def extract_food_prices(conn, cursor):
+def extract_food_prices(conn, cursor, isProdDatabase=False):
     df = pd.read_csv('db_extractors/18100245.csv')
     
-    for _, row in df.iterrows():
+    for i, row in df.iterrows():
+        if not isProdDatabase and i % 1000 != 0:
+            continue
+
         # No insert if not in units or if price does not exist
         if row['SCALAR_FACTOR'] != 'units' or row['VALUE'] == 'NaN':
             continue

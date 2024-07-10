@@ -1,13 +1,16 @@
 import pandas as pd
 import re
 
-def extract_food_recipes(conn, cursor):
+def extract_food_recipes(conn, cursor, isProdDatabase=False):
     df = pd.read_csv('db_extractors/recipes_w_search_terms.csv')
     print('length:', len(df.index))
     
     for index, row in df.iterrows():
-        if index % 5 != 0:
+        if not isProdDatabase and index % 1000 != 0:
             continue
+        elif index % 5 != 0:
+            continue
+        
         if index % 10000 == 0:
             print('# of inserted rows:', index/5)
 
