@@ -115,6 +115,7 @@ def r10_get(recipeId):
         WHERE r.rID = {recipeId}
         GROUP BY r.rID, r.recipe_name;
         """
+
 def r11_add_new_recipe(recipe_name, rdescription, ringredients, rserving_size, rservings, rsteps, ingredients):
     return f"""
         WITH new_recipe AS (

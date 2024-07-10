@@ -6,6 +6,6 @@ WITH new_recipe AS (
 INSERT INTO IngredientsInRecipe (recipeId, iname, unit_of_measure, quantity)
 VALUES 
     ((SELECT rId FROM new_recipe), 'chicken breast', 'grams', 300),
-    ((SELECT rId FROM new_recipe), 'bacon', 'grams', 100)
+    ((SELECT rId FROM new_recipe), 'bacon', 'grams', 100);
 
 SELECT * FROM Recipes WHERE recipe_name = 'Bacon Wrapped Chicken';
