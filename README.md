@@ -74,12 +74,12 @@ Now, you may use the web application however you'd like!
 
 ### Features (R6a … R9b)
 
-**R6: Feature 1**
+**R6: Feature 1** (Completed - Milestone 1)
 
 Description: 
 Extract database recipes to determine which ones can be made provided a list of ingredients that a user has. If no recipes match all ingredients, the user can choose to list recipes that include as many of them as possible.
 
-**R7: Feature 2**
+**R7: Feature 2** (Completed - Milestone 2)
 
 Description:
 Total nutritional information of a recipe. For example, calorie count, grams of protein, carbohydrates, and fats, along with other facts seen on nutrition labels.
@@ -94,10 +94,15 @@ Price calculations per serving of the recipe, based on current market prices of 
 Description: 
 Filter by most and least expensive and nutritional recipes based on user preferences and ingredient availability to the user. 
 
-**R9.5 Feature 5**
+**R10: Feature 5**
 
 Description: 
 Provide more information about a specific recipe. In the final product, this will be when the user clicks on a recipe name and it shows all the information such as ingredients, steps for preparation, nutrition etc.
+
+**R11: Feature 6** (Completed - Milestone 2)
+
+Description: 
+Users can upload their own recipes to the database to either share publicly or for their own private uses.
 
 ### Fancy Features (R12 - R16)
 
@@ -105,11 +110,11 @@ Provide more information about a specific recipe. In the final product, this wil
 
 We use Redis as a cache system to record user search history, enabling real-time information display, query optimization, and database load reduction.
 
-**R13: Nutrient Calculation and Suggestion**
+**R13: Nutrient Calculation and Suggestion** (Completed - Milestone 2)
 
 Python is used to calculate and sum up the nutritional values of all ingredients in a recipe, offering users detailed insights into their caloric and nutrient intake.
 
-**R14: Data Visualization**
+**R14: Data Visualization** (Completed - Milestone 2)
 
 Create visualizations to show users’ daily caloric and nutrient intake, compare it against recommended dietary allowances, and use ML algorithms like clustering to suggest new recipes based on eating patterns.
 
