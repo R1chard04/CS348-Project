@@ -1,0 +1,3 @@
+rid recipe_name       rdescription                     ingredients     reserving_size  rservings  rsteps                         recipeId  iname  unit_of_measure quantity
+596	"Baked Potato"	"Hot and tasty winter treat"	"{"potato", "butter"}"	400	2	"Cut open potato. Load with butter. Bake."	596	 "potato"	"grams"	400
+596	"Baked Potato"	"Hot and tasty winter treat"	"{"potato", "butter"}"	400	2	"Cut open potato. Load with butter. Bake."	596	 "butter"	"grams"	100
