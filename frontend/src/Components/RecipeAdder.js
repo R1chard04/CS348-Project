@@ -22,7 +22,23 @@ const RecipeAdder = () => {
 
     const onAddRecipe = () => {
         // TODO: ADD ENDPOINT TO ADD RECIPE INTO DATABASE 
-        console.log("adding: ", ingredients); 
+        console.log("recipe name: ", recipeName);
+        console.log("servings: ", servings);   
+        console.log("serving size: ", servingSize);
+        console.log("steps: ", steps);
+        console.log("ingredients: ", ingredients); 
+        console.log(`http://127.0.0.1:5000/addrecipe/${recipeName}/${servings}/${servingSize}/${steps}/${ingredients.join(',')}`);
+
+        fetch(`http://127.0.0.1:5000/addrecipe/${recipeName}/${servings}/${servingSize}/${steps}/${ingredients.join(',')}`, {
+            headers: {
+                'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers': '*',
+            }
+        }).then(response => response.json())
+            .then(data => { console.log("success"); })
+            .catch(error => console.error(error));
+
     }
 
     const IngredientItems = ({ingredientName}) => {
@@ -38,7 +54,7 @@ const RecipeAdder = () => {
         return (
             <div className="itemDiv" >
                 {ingredientName}
-                <button onClick={() => removeSelf()} style = {{ backgroundColor: '#FFCCCB' }}>X</button>
+                <button className = "removeSelfButton" onClick={() => removeSelf()}>X</button>
             </div>
         );
     };
@@ -75,9 +91,9 @@ const RecipeAdder = () => {
 
             <div className="stepsContainer">
                 <div>Steps</div>
-                <input className = "stepsInput"
+                <textarea className = "stepsInput"
                         type="text"
-                        placeholder="Add Serving Count"
+                        placeholder="Add Steps"
                         value={steps}
                         onChange={(e) => setSteps(e.target.value)}
                     />
