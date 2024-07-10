@@ -27,6 +27,18 @@ const RecipeAdder = () => {
         console.log("serving size: ", servingSize);
         console.log("steps: ", steps);
         console.log("ingredients: ", ingredients); 
+        console.log(`http://127.0.0.1:5000/addrecipe/${recipeName}/${servings}/${servingSize}/${steps}/${ingredients.join(',')}`);
+
+        fetch(`http://127.0.0.1:5000/addrecipe/${recipeName}/${servings}/${servingSize}/${steps}/${ingredients.join(',')}`, {
+            headers: {
+                'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers': '*',
+            }
+        }).then(response => response.json())
+            .then(data => { console.log("success"); })
+            .catch(error => console.error(error));
+
     }
 
     const IngredientItems = ({ingredientName}) => {
