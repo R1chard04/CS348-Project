@@ -9,10 +9,19 @@ This system utilizes React.js for the front-end, Flask for the middleware/back-e
 ### Team Members:
 Richard Miao, Haibo Sun, Fred Sun, Thomas Wang, Jason Milad
 
+### Sample vs. Production Databases
+The sample database is a subset of the production database. All of the files required for loading data into your PostgreSQL database is located in the "Sources" section. To load up a sample database, follow the next section "Setup" but in step 5, modify `backend/extract_data.py` by setting `isProdDatabase` to `False`; conversely, to load up a production database, set `isProdDatabase` to `True`. 
+
 ### Setup:
 You can run this in your local system with the following steps:
 
-1. This application runs on PostgreSQL. Download [pgAdmin](https://www.pgadmin.org/download/) for this. Download all applications that as packaged, and configure your username and password when prompted. When you are done, open the pgAdmin application. Create a (or use an existing) server group, and connect to a database. This needs to be open and running. Open a query tool, and run the DDL queries located in `backend/db_queries/ddl_queries.py` to create the tables. You will also need to create and set up your `backend/database.ini` and `backend/.flaskenv`:
+1. First, `git clone` the application, and enter the root directory.
+```
+$ git clone git@github.com:R1chard04/CS348-Project.git
+$ cd CS348-Project/
+```
+
+2. This application runs on PostgreSQL. Download [pgAdmin](https://www.pgadmin.org/download/) for this. Download all applications that as packaged, and configure your username and password when prompted. When you are done, open the pgAdmin application. Create a (or use an existing) server group, and connect to a database. This needs to be open and running. Open a query tool, and run the DDL queries located in `backend/db_queries/ddl_queries.py` to create the tables. You will also need to create and create and set up your `backend/database.ini` and `backend/.flaskenv`:
 
 `backend/database.ini`:
 ```
@@ -30,15 +39,9 @@ FLASK_APP=api.py
 FLASK_ENV=development
 ```
 
-2. Next, `git clone` the application, and enter the root directory.
-```
-$ git clone git@github.com:R1chard04/CS348-Project.git
-$ cd CS348-Project/
-```
+3. Within `backend/db_extractors`, download and add the following 3 csv files: [18100245.csv](https://open.canada.ca/data/en/dataset/8015bcc6-401d-4927-a447-bb35d5dfcc91/resource/ccf891a0-31b0-4887-993f-ed99dc38c28a), [NutritionTable.csv](https://www.kaggle.com/datasets/pyvalentin/full-food-nutrients-composition) and [recipes_w_search_terms.csv](https://www.kaggle.com/datasets/shuyangli94/foodcom-recipes-with-search-terms-and-tags). Name them exactly as defined.
 
-4. Within `backend/db_extractors`, download and add the following 3 csv files: [18100245.csv](https://open.canada.ca/data/en/dataset/8015bcc6-401d-4927-a447-bb35d5dfcc91/resource/ccf891a0-31b0-4887-993f-ed99dc38c28a), [NutritionTable.csv](https://www.kaggle.com/datasets/pyvalentin/full-food-nutrients-composition) and [recipes_w_search_terms.csv](https://www.kaggle.com/datasets/shuyangli94/foodcom-recipes-with-search-terms-and-tags). Name them exactly as defined.
-
-5. Open up a terminal and run the following commands:
+4. Open up a terminal and run the following commands:
 ```
 $ python3 -m venv venv 
 $ source venv/bin/activate
@@ -46,14 +49,14 @@ $ cd backend
 ```
 You should now be in a virtual environment. This will be used to ultimately host the backend server. 
 
-4. In `backend/test.py`, uncomment the extractor functions on lines 11-13. In a terminal, run the following commands:
+5. In `backend/extract_data.py`, change the global variable `isProdDatabase` based on whether you want to use a sample database or the production database. In a terminal, run the following commands:
 ```
 $ cd backend/
-$ python3 test.py
+$ python3 extract_data.py
 ```
 Due to the large amount of data, this will run for a few minutes maximum.
 
-5. With the database all set up, open another terminal. For clarity, we name the first terminal T1 and the second T2. T1 should already be in a virtual environment, as per Step 2; T2 will host the front-end web page:
+6. With the database all set up, open another terminal. For clarity, we name the first terminal T1 and the second T2. T1 should already be in a virtual environment, as per Step 2; T2 will host the front-end web page:
 ```
 $ cd frontend/
 $ npm i
@@ -61,7 +64,7 @@ $ npm start
 ```
 You should automatically be redirected to a web page on your local browser. If not, click on the localhost link in T2. 
 
-6. In T1, run the following command (you should still be in the `backend/` directory):
+7. In T1, run the following command (you should still be in the `backend/` directory):
 ```
 $ python3 app.py
 ```
