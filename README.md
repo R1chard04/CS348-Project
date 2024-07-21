@@ -7,7 +7,7 @@ This is our GitHub repo for the CS348 Project.
 This system utilizes React.js for the front-end, Flask for the middleware/back-end, Linux as the OS, and PostgreSQL for the DBMS.
 
 ### Team Members:
-Richard Miao, Haibo Sun, Fred Sun, Thomas Wang, Jason Milad
+Richard Miao, Haibo Sun, Fred Sun, Thomas Wang
 
 ### Sample vs. Production Databases
 The sample database is a subset of the production database. All of the files required for loading data into your PostgreSQL database is located in the "Sources" section. To load up a sample database, follow the next section "Setup" but in step 5, modify `backend/extract_data.py` by setting `isProdDatabase` to `False`; conversely, to load up a production database, set `isProdDatabase` to `True`. 
