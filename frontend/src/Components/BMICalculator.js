@@ -48,4 +48,4 @@ const BMICalculator = () => {
     )
 }
 
-export default BMICalculator
+export default BMICalculator;

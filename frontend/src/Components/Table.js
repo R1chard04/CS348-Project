@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 
+import NutrientsChart from './NutrientsChart';
+
 // CSS
 import './Table.css';
 
@@ -12,7 +14,7 @@ const recipeKeysMap = {
     "ingredients": "array", 
     "serving_size": "int", 
     "servings": "int", 
-    "steps": "varchar"
+
 };
 const nutritionKeysMap = {
     "recipe_id": "int", 
@@ -33,7 +35,20 @@ const ingredientKeysMap = {
     "id": "int", 
     "recipe_name": "varchar", 
     "count": "int",
-}
+};
+
+const expandedKeysMap = {
+    "id": "int",  
+    "description": "varchar",
+    "recipe_name": "varchar",
+    "steps": "varchar",
+    "serving_size": "int", 
+    "servings": "int", 
+    "calories": "int", 
+    "protein": "int", 
+    "carbs": "int", 
+    "fat": "int", 
+};
 
 
 const PAGINATION_SIZE = 5;
@@ -43,18 +58,32 @@ const Table = ({ rows, tableType }) => {
     const [index, setIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
+    const [expandedValues, setExpandedValues] = useState(null);
 
     const useMap = tableType === "recipe" ? recipeKeysMap : tableType === "nutrition" ? nutritionKeysMap : tableType === "ingredients" ? ingredientKeysMap : priceKeysMap;
 
     const handleRowClick = (row) => {
         setSelectedRow(row);
         setIsModalOpen(true);
+        getExpandedValues(row[0]);
     };
 
     const closeModal = () => {
         setIsModalOpen(false);
         setSelectedRow(null);
     };
+
+    const getExpandedValues = (id) => {
+        fetch(`http://127.0.0.1:5000/getgeneralrecipeinfo/${id}`, {
+            headers: {
+                'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers': '*',
+            }
+        }).then(response => response.json())
+            .then(data => { console.log("expanded values: ", data.msg[0]); setExpandedValues(data.msg[0]); })
+            .catch(error => console.error(error));
+    }
 
     return (
         <div className="table-root-container">
@@ -72,9 +101,10 @@ const Table = ({ rows, tableType }) => {
                 <tbody className="table-body">
                     {rows.length && rows.slice(index, index + PAGINATION_SIZE).map((row, rowIndex) => (
                         <tr 
-                            className={`table-body-row ${rowIndex % 2 === 0 ? 'even' : 'odd'}`} 
+                            className="table-body-row" 
                             key={rowIndex}
                             onClick={() => handleRowClick(row)}
+                            style={{ backgroundColor: rowIndex % 2 === 0 ? '#f9f9f9' : '#fff' }}
                         >
                             {Object.keys(useMap).map((key, cellIndex) => (
                                 <td className="table-body-data" key={cellIndex}>
@@ -111,18 +141,26 @@ const Table = ({ rows, tableType }) => {
             >
                 {selectedRow && (
                     <div>
-                        <h2>Recipe Details</h2>
+                        <div className='modal-header'>
+                            <h2>Recipe Details</h2>
+                            <button onClick={closeModal}>Close</button>
+                        </div>
                         <table>
                             <tbody>
-                                {Object.keys(useMap).map((key, index) => (
+                                {Object.keys(expandedKeysMap).map((key, index) => (
                                     <tr key={index}>
-                                        <td>{key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ')}</td>
-                                        <td>{selectedRow[useMap[key]]}</td>
+                                        <td>{key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ')}:</td>
+                                        <td>{expandedValues && (key !== "steps" ? expandedValues[index] : expandedValues[index].slice(0, 50) + "...")}</td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
-                        <button onClick={closeModal}>Close</button>
+                        <NutrientsChart
+                            calories={expandedValues && expandedValues[6]}
+                            protein={expandedValues && expandedValues[7]}
+                            carbs={expandedValues && expandedValues[8]}
+                            fat={expandedValues && expandedValues[9]}
+                        />
                     </div>
                 )}
             </Modal>

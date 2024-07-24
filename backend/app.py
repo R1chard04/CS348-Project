@@ -2,9 +2,9 @@ from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
 import json
 import urllib.parse
-from fancy_features import bmi_table, dri_table, nutrient_data, recipe_data, recipe_healthy
+# from fancy_features import bmi_table, dri_table, nutrient_data, recipe_data, recipe_healthy
 from connect import get_cursor
-from db_queries.feature_queries import getRecipeById, getRecipeByName, getSearchByName, getAllRecipes, r6_get, r7_get, r8_get, r9_price_get, r9_protein_content_get
+from db_queries.feature_queries import getRecipeById, getRecipeByName, getSearchByName, getAllRecipes, r6_get, r7_get, r8_get, r9_price_get, r9_protein_content_get, r10_get
 
 app = Flask(__name__)
 CORS(app)
@@ -120,38 +120,38 @@ def getGeneralRecipeInfo(id):
         return jsonify({
             'msg': [],
             'error': 'Invalid recipe ID'})
-    cur.execute(getRecipeById(id))
+    cur.execute(r10_get(id))
     rows = cur.fetchall()
     print(rows)
     return jsonify({'msg': rows})
 
-@app.route('/getbmi/<weight>/<height>', methods=['GET'])
-@cross_origin()
-def getBMI(weight, height):
-    bmi = bmi_table.calculate_bmi(int(weight), int(height))
-    print(bmi)
-    return jsonify({'bmi': bmi})
+# @app.route('/getbmi/<weight>/<height>', methods=['GET'])
+# @cross_origin()
+# def getBMI(weight, height):
+#     bmi = bmi_table.calculate_bmi(int(weight), int(height))
+#     print(bmi)
+#     return jsonify({'bmi': bmi})
 
-@app.route('/getbmiplot/<weight>/<height>', methods=['GET'])
-@cross_origin()
-def getBMIPlot(weight, height):
-    bmiPlot = bmi_table.bmi_distribution(weight, height)
-    # ====================== needs work? 
-    return jsonify({'bmiPlot': bmiPlot})
+# @app.route('/getbmiplot/<weight>/<height>', methods=['GET'])
+# @cross_origin()
+# def getBMIPlot(weight, height):
+#     bmiPlot = bmi_table.bmi_distribution(weight, height)
+#     # ====================== needs work? 
+#     return jsonify({'bmiPlot': bmiPlot})
 
-@app.route('/getingredientgraph/<iname>', methods=['GET'])
-@cross_origin()
-def getIngredintGraph(iname):
-    ingredientPlot = nutrient_data.ingredient_graph(iname)
-    # ====================== needs work? 
-    return jsonify({'ingredientPlot': ingredientPlot})
+# @app.route('/getingredientgraph/<iname>', methods=['GET'])
+# @cross_origin()
+# def getIngredintGraph(iname):
+#     ingredientPlot = nutrient_data.ingredient_graph(iname)
+#     # ====================== needs work? 
+#     return jsonify({'ingredientPlot': ingredientPlot})
 
-@app.route('/getnutritioninfo/<recipe_id>', methods=['GET'])
-@cross_origin()
-def getNutritionInfo(recipe_id):
-    nutritionPlot = recipe_healthy.plot_nutritional_info(recipe_id)
-    # ====================== needs work? 
-    return jsonify({'nutritionPlot': nutritionPlot})
+# @app.route('/getnutritioninfo/<recipe_id>', methods=['GET'])
+# @cross_origin()
+# def getNutritionInfo(recipe_id):
+#     nutritionPlot = recipe_healthy.plot_nutritional_info(recipe_id)
+#     # ====================== needs work? 
+#     return jsonify({'nutritionPlot': nutritionPlot})
 
 # Feature 6: Get recipes by ingredients
 # @app.route('/addrecipe/<name>/<servings>/<servingSize>/<steps>/<ingredients>', methods=['POST'])
