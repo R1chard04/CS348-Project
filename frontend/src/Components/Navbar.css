@@ -1,8 +1,11 @@
+/* Navbar styling */
 .navbar {
-    background: #333;
+    background: #007bff;
     color: #fff;
-    padding: 1rem;
     position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px; 
+    z-index: 10;
 }
 
 .nav-center {
@@ -11,30 +14,107 @@
     align-items: center;
 }
 
+.logo a {
+    color: #fff;
+    font-size: 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .nav-toggle {
     background: none;
     border: none;
     color: #fff;
     font-size: 1.5rem;
     cursor: pointer;
+    display: none; /* Hide toggle button by default */
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.nav-toggle:hover {
+    transform: scale(1.1);
+}
+
+.nav-icon {
+    width: 25px;
+    height: 2px;
+    background-color: #fff;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.nav-icon::before,
+.nav-icon::after {
+    content: '';
+    width: 25px;
+    height: 2px;
+    background-color: #fff;
+    position: absolute;
+    transition: transform 0.3s ease;
+}
+
+.nav-icon::before {
+    transform: translateY(-8px);
+}
+
+.nav-icon::after {
+    transform: translateY(8px);
 }
 
 .nav-links {
-    display: none;
+    display: flex;
     list-style-type: none;
     padding: 0;
     margin: 0;
+    text-align: center;
+    background-color: #007bff;
+    transition: all 0.3s ease-in-out;
+    border-radius: 15px;
 }
 
 .nav-links li {
-    margin: 0.5rem 0;
+    margin: 0 1rem;
 }
 
 .nav-links a {
     color: #fff;
     text-decoration: none;
+    font-size: 1.2rem;
+    display: block;
+    padding: 1rem;
+    transition: background-color 0.3s ease;
 }
 
-.show-nav {
-    display: block;
+.nav-links a:hover {
+    background-color: #444;
+    border-radius: 15px; 
+}
+
+.active-link {
+    background-color: #0056b3;
+    border-radius: 15px; 
+}
+
+/* Ensure the nav toggle is displayed only on smaller screens */
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: flex;
+    }
+    .nav-links {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        display: none; /* Hide links by default */
+        opacity: 0;
+        visibility: hidden;
+    }
+    .nav-links.show-nav {
+        display: flex;
+        opacity: 1;
+        visibility: visible;
+    }
 }

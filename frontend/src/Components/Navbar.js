@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import './Navbar.css';
 
@@ -14,17 +14,17 @@ const Navbar = () => {
         <nav className="navbar">
             <div className="nav-center">
                 <button className="nav-toggle" onClick={handleToggle}>
-                    {isOpen ? "Close" : "Menu"}
+                    <div className="nav-icon"></div>
                 </button>
                 <ul className={isOpen ? "nav-links show-nav" : "nav-links"}>
                     <li>
-                        <Link to="/" onClick={handleToggle}>Home</Link>
+                        <NavLink exact to="/" onClick={handleToggle} activeClassName="active-link">Home</NavLink>
                     </li>
                     <li>
-                        <Link to="/bmi-calculator" onClick={handleToggle}>Calculate BMI</Link>
+                        <NavLink to="/bmi-calculator" onClick={handleToggle} activeClassName="active-link">Calculate BMI</NavLink>
                     </li>
                     <li>
-                        <Link to="/add-recipe" onClick={handleToggle}>Add a recipe</Link>
+                        <NavLink to="/add-recipe" onClick={handleToggle} activeClassName="active-link">Add a recipe</NavLink>
                     </li>
                 </ul>
             </div>
