@@ -7,6 +7,7 @@ import './App.css';
 import MainPage from './MainPage';
 import Navbar from './Components/Navbar';
 import BMICalculator from './Components/BMICalculator';
+import RecipeAdder from './Components/RecipeAdder';
 
 const App = () => {
   const [message, setMessage] = useState('');
@@ -34,6 +35,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/bmi-calculator" element={<BMICalculator />} />
+          <Route path="/add-recipe" element={<RecipeAdder />} />
         </Routes>
       </div>
     </Router>

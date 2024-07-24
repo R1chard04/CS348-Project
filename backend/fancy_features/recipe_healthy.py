@@ -1,3 +1,6 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
 advice_texts = {
     "Calories_high": "The calorie content is quite high. Consider balancing this meal with low-calorie foods throughout the day.",
     "Calories_low": "The calorie content is low. Make sure you are getting enough calories to meet your daily energy needs.",

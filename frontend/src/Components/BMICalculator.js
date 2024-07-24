@@ -45,7 +45,7 @@ const BMICalculator = () => {
                 Get a BMI Plot
             </button>
         </div>
-    )
+    );
 }
 
 export default BMICalculator;

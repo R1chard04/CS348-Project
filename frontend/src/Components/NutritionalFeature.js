@@ -3,7 +3,7 @@ import {useState} from 'react'
 import './NutritionalFeature.css'
 
 const NutritionalFeature = () => {
-    const [recipeId, setRecipeId] = useState(0)
+    const [recipeId, setRecipeId] = useState(0);
 
     const getNutritionPlot = () => {
 
@@ -23,7 +23,7 @@ const NutritionalFeature = () => {
                 Get a Nutritional Plot
             </button>
         </div>
-    )
+    );
 }
 
-export default NutritionalFeature
+export default NutritionalFeature;

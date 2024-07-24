@@ -20,9 +20,12 @@ const Navbar = () => {
                     <li>
                         <Link to="/" onClick={handleToggle}>Home</Link>
                     </li>
-                    {/* <li>
-                        <Link to="/about" onClick={handleToggle}>About</Link>
-                    </li> */}
+                    <li>
+                        <Link to="/bmi-calculator" onClick={handleToggle}>Calculate BMI</Link>
+                    </li>
+                    <li>
+                        <Link to="/add-recipe" onClick={handleToggle}>Add a recipe</Link>
+                    </li>
                 </ul>
             </div>
         </nav>

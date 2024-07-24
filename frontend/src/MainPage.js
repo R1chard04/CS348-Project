@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import SearchBar from './Components/SearchBar';
 import Table from './Components/Table';
 import ListBar from './Components/ListBar';
-import RecipeAdder from './Components/RecipeAdder';
-import BMICalculator from './Components/BMICalculator';
 import NutritionalFeature from './Components/NutritionalFeature';
 import IngredientFeature from './Components/IngredientFeature';
 
@@ -86,8 +84,6 @@ const MainPage = () => {
             {searchOption === 'Price Search' && <SearchBar setRecipe={setRecipe} valToEndpoint={priceSearchValToEndpoint} />}
             {searchOption === 'Most Expensive Search' && <ListBar setRecipe={setRecipe} itemList={ingredients}/>}
             {searchOption === 'Most Protein Search' && <ListBar setRecipe={setRecipe} itemList={ingredients}/>}
-            {searchOption === 'Create Recipe' && <RecipeAdder/>}
-            {searchOption === 'Calculate BMI' && <BMICalculator/>}
             {searchOption === 'Get Ingredient Graph' && <IngredientFeature/>}
             {searchOption === 'Get Nutritional Info' && <NutritionalFeature/>}
 
