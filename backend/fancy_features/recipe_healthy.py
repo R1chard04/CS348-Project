@@ -83,3 +83,4 @@ def plot_nutritional_info(df, recipe_id):
         plt.suptitle(f"Nutritional Intake Percentage Comparison for {recipe_name}", fontsize=16, fontweight='bold')
         plt.tight_layout()
         plt.show()
+        return plt

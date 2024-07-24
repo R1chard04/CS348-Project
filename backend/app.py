@@ -139,6 +139,20 @@ def getBMIPlot(weight, height):
     # ====================== needs work? 
     return jsonify({'bmiPlot': bmiPlot})
 
+@app.route('/getingredientgraph/<iname>', methods=['GET'])
+@cross_origin()
+def getIngredintGraph(iname):
+    ingredientPlot = nutrient_data.ingredient_graph(iname)
+    # ====================== needs work? 
+    return jsonify({'ingredientPlot': ingredientPlot})
+
+@app.route('/getnutritioninfo/<recipe_id>', methods=['GET'])
+@cross_origin()
+def getNutritionInfo(recipe_id):
+    nutritionPlot = recipe_healthy.plot_nutritional_info(recipe_id)
+    # ====================== needs work? 
+    return jsonify({'nutritionPlot': nutritionPlot})
+
 # Feature 6: Get recipes by ingredients
 # @app.route('/addrecipe/<name>/<servings>/<servingSize>/<steps>/<ingredients>', methods=['POST'])
 # @cross_origin()

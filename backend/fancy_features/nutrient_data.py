@@ -23,3 +23,4 @@ def ingredient_graph(param, df):
     plt.legend()
 
     plt.show()
+    return plt
