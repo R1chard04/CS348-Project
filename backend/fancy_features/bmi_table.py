@@ -33,5 +33,6 @@ def bmi_distrbution(user_height, user_weight):
     plt.ylabel('BMI Index')
     plt.legend()
     plt.show()
+    return plt
 
 bmi_distrbution(164,123)
