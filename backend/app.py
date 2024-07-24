@@ -126,14 +126,14 @@ def getGeneralRecipeInfo(id):
     return jsonify({'msg': rows})
 
 # Feature 6: Get recipes by ingredients
-@app.route('/addrecipe/<name>/<servings>/<servingSize>/<steps>/<ingredients>', methods=['POST'])
-@cross_origin()
-def getRecipesByIngredients(ingredients):
-    decodedIngredients = urllib.parse.unquote(ingredients).split(',')
-    cur.execute(r6_get(decodedIngredients))
-    rows = cur.fetchall()
-    print(rows)
-    return jsonify({'msg': rows})
+# @app.route('/addrecipe/<name>/<servings>/<servingSize>/<steps>/<ingredients>', methods=['POST'])
+# @cross_origin()
+# def getRecipesByIngredients(ingredients):
+#     decodedIngredients = urllib.parse.unquote(ingredients).split(',')
+#     cur.execute(r6_get(decodedIngredients))
+#     rows = cur.fetchall()
+#     print(rows)
+#     return jsonify({'msg': rows})
 
 if __name__ == '__main__':
     app.run()

@@ -37,10 +37,10 @@ def extract_food_prices(conn, cursor, isProdDatabase=False):
         
         # Insert price
         insertRow.append(row['VALUE'])
-        
+
         # Insert into table
         insert_query = '''
-            INSERT INTO Food_Prices (food_name, food_quantity, food_metric, price)
+            INSERT INTO Prices (pname, pquantity, pmetric, price)
             VALUES (%s, %s, %s, %s)
             '''
         cursor.execute(insert_query, tuple(insertRow))

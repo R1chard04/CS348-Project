@@ -7,7 +7,7 @@ def extract_food_nutrition(conn, cursor, isProdDatabase=False):
     df = pd.read_csv('db_extractors/NutritionTable.csv')
 
     for index, row in df.iterrows():
-        if not isProdDatabase and index % 1000 != 0:
+        if not isProdDatabase and index % 100 != 0:
             continue
         print('row:', row['alim_nom_eng'])
 
@@ -45,9 +45,13 @@ def extract_food_nutrition(conn, cursor, isProdDatabase=False):
             if insertRow[i] == '-' or (i > 0 and any(c.isalpha() for c in insertRow[i])):
                 insertRow[i] = None
         
+        # Cast values to float
+        for i in range(1, len(insertRow)):
+            insertRow[i] = float(insertRow[i]) if insertRow[i] else None
+
         # Insert into table
         insert_query = '''
-            INSERT INTO Nutrition (nutrition_name, protein, carb, fat, sugar, sodium, vitamin_d, vitamin_e)
+            INSERT INTO Ingredients (iname, protein, carb, fat, sugar, sodium, vitamin_d, vitamin_e)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
             '''
         cursor.execute(insert_query, tuple(insertRow))

@@ -27,6 +27,8 @@ def extract_food_recipes(conn, cursor, isProdDatabase=False):
 
         # Insert ingredients
         ingredients = re.sub(r'[\'\[\]]', '', row['ingredients']).split(',')
+        for i in range(0, len(ingredients)):
+            ingredients[i] = ingredients[i].strip()
         insertRow.append(ingredients)
 
         # Insert serving_size
@@ -41,7 +43,7 @@ def extract_food_recipes(conn, cursor, isProdDatabase=False):
 
         # Insert into table
         insert_query_recipe = '''
-            INSERT INTO Recipes (id, recipe_name, description, ingredients, serving_size, servings, steps)
+            INSERT INTO Recipes (rId, recipe_name, rdescription, ringredients, rserving_size, rservings, rsteps)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
             '''
         cursor.execute(insert_query_recipe, tuple(insertRow))
@@ -51,7 +53,7 @@ def extract_food_recipes(conn, cursor, isProdDatabase=False):
         searchTerms = re.sub(r'[\' {}]', '', row['search_terms']).split(',')
         for term in searchTerms:
             insert_query_search = '''
-                INSERT INTO Search_Terms (recipeId, terms)
+                INSERT INTO RecipeSearchTerms (rId, terms)
                 VALUES (%s, %s)
                 '''
             cursor.execute(insert_query_search, (row['id'], term))
