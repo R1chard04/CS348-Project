@@ -5,6 +5,7 @@ import './BMICalculator.css'
 const BMICalculator = () => {
     const [height, setHeight] = useState(0); 
     const [weight, setWeight] = useState(0); 
+    const [bmi, setBMI] = useState(0);
 
     const getBMI = () => {
         fetch(`http://127.0.0.1:5000/getbmi/${weight}/${height}`, {
@@ -14,7 +15,7 @@ const BMICalculator = () => {
                 'Access-Control-Allow-Headers': '*',
             }
         }).then(response => response.json())
-            .then(data => { console.log("success"); console.log("this: ", data)})
+            .then(data => { console.log("msg: ", data); setBMI(data.msg); })
             .catch(error => console.error(error));
     }
     const getBMIPlot = () => {
@@ -44,6 +45,8 @@ const BMICalculator = () => {
             <button className = "fetchBMIPlot" onClick = {() => getBMIPlot()}>
                 Get a BMI Plot
             </button>
+
+            <h1>{bmi ? bmi : ''}</h1>
         </div>
     );
 }

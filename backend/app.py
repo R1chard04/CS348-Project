@@ -5,7 +5,7 @@ import redis
 
 import json
 import urllib.parse
-# from fancy_features import bmi_table, dri_table, nutrient_data, recipe_data, recipe_healthy
+from fancy_features import bmi_table, dri_table, nutrient_data, recipe_data, recipe_healthy
 from connect import get_cursor
 from db_queries.feature_queries import getRecipeById, getRecipeByName, getSearchByName, getAllRecipes, r6_get, r7_get, r8_get, r9_price_get, r9_protein_content_get, r10_get
 
@@ -32,6 +32,7 @@ def getEveryRecipe():
     cacheKey = 'allrecipes'
     cachedData = cache.get(cacheKey)
     if cachedData:
+        print("cache hit")
         return jsonify({'msg': cachedData})
     cur.execute(getAllRecipes())
     rows = cur.fetchall()
@@ -195,12 +196,12 @@ def getGeneralRecipeInfo(id):
     cache.set(cacheKey, rows)
     return jsonify({'msg': rows})
 
-# @app.route('/getbmi/<weight>/<height>', methods=['GET'])
-# @cross_origin()
-# def getBMI(weight, height):
-#     bmi = bmi_table.calculate_bmi(int(weight), int(height))
-#     print(bmi)
-#     return jsonify({'bmi': bmi})
+@app.route('/getbmi/<weight>/<height>', methods=['GET'])
+@cross_origin()
+def getBMI(weight, height):
+    bmi = bmi_table.calculate_bmi(int(weight), int(height))
+    print(bmi)
+    return jsonify({'msg': bmi})
 
 # @app.route('/getbmiplot/<weight>/<height>', methods=['GET'])
 # @cross_origin()

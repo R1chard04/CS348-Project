@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-file_path = 'bmi.csv' 
+file_path = './fancy_features/bmi.csv' 
 bmi_df = pd.read_csv(file_path, names=['Gender', 'Height', 'Weight', 'Index'], header=0)
 
 print(bmi_df)
