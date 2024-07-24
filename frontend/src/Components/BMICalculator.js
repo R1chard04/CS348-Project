@@ -25,14 +25,14 @@ const BMICalculator = () => {
         <div className = "enter-BMI-container">
             <div>Height</div>
             <input
-                type="text"
+                type="number"
                 placeholder="Enter your height in cm"
                 value={height}
                 onChange={(e) => setHeight(e.target.value)}
             />
             <div>Weight</div>
             <input
-                type="text"
+                type="number"
                 placeholder="Enter your weight in kg"
                 value={weight}
                 onChange={(e) => setWeight(e.target.value)}

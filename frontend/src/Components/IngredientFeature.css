@@ -1,0 +1,52 @@
+/* Container for the entire component */
+.enter-ingredient-container {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    gap: 20px;
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 15px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+/* Styling for the Recipe Id container */
+.enter-ingredient-container div {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Styling for the input field */
+.enter-ingredient-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Styling for the button */
+.fetchingredientPlot {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.fetchingredientPlot:hover {
+    background-color: #0056b3;
+}
+
+.fetchingredientPlot:active {
+    background-color: #003d80;
+}
