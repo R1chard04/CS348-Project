@@ -1,20 +1,21 @@
 import React, {useState} from 'react';
 import { Chart, registerables } from 'chart.js';
+import annotationPlugin from 'chartjs-plugin-annotation';
 import { Bar, Line } from 'react-chartjs-2';
 import './BMICalculator.css';
 
-Chart.register(...registerables);
+Chart.register(...registerables, annotationPlugin);
 
 const BMICharts = ({ bmiData, userBmi }) => {
 
+    console.log('bmiData: ', bmiData);
     
-
     const histogramData = {
-        labels: Array.from({ length: 10 }, (_, i) => i + 1),
+        labels: Array.from({ length: 6 }, (_, i) => i),
         datasets: [
             {
-                label: 'BMI Index',
-                data: bmiData,
+                label: 'Average BMI Index',
+                data: Object.values(bmiData),
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
@@ -119,10 +120,10 @@ const BMICharts = ({ bmiData, userBmi }) => {
                 <h2>Distribution of BMI Index</h2>
                 <Bar data={histogramData} options={histogramOptions} />
             </div>
-            <div style={{ width: '80%', margin: 'auto', marginTop: '50px' }}>
+            {/* <div style={{ width: '80%', margin: 'auto', marginTop: '50px' }}>
                 <h2>BMI Index by Gender</h2>
                 <Bar data={boxPlotData} options={boxPlotOptions} />
-            </div>
+            </div> */}
         </div>
     );
 };
@@ -131,7 +132,7 @@ const BMICalculator = () => {
     const [height, setHeight] = useState(0); 
     const [weight, setWeight] = useState(0); 
     const [bmi, setBMI] = useState(0);
-    const [bmiIndexes, setBMIIndexes] = useState([]);
+    const [bmiIndexes, setBMIIndexes] = useState({});
 
     const getBMI = () => {
         fetch(`http://127.0.0.1:5000/getbmi/${weight}/${height}`, {
@@ -175,16 +176,12 @@ const BMICalculator = () => {
                 value={weight}
                 onChange={(e) => setWeight(e.target.value)}
             />
-            <button className = "fetchBMI" onClick = {() => getBMI()}>
+            <button className = "fetchBMI" onClick = {() => { getBMI(); getBMIPlot(); }}>
                 Calculate your BMI 
             </button>
 
-            <button className = "fetchBMIPlot" onClick = {() => getBMIPlot()}>
-                Get a BMI Plot
-            </button>
-
-            <h1>{bmi ? bmi : ''}</h1>
-            {bmi && bmiIndexes.length ? <BMICharts bmiData={bmiIndexes} userBmi={bmi} /> : null}
+            <h1>{bmi ? 'Your BMI: ' + bmi.toFixed(2) : ''}</h1>
+            {bmi && Object.keys(bmiIndexes).length ? <BMICharts bmiData={bmiIndexes} userBmi={bmi} /> : ''}
         </div>
     );
 }

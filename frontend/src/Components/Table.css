@@ -73,6 +73,7 @@
 
 .modal {
     position: absolute;
+    width: 50%;
     top: 50%;
     left: 50%;
     right: auto;
@@ -91,6 +92,11 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+}
+
+.modal-row {
+    padding: 10px 0;
+    border-bottom: 2px solid #e0e0e0;
 }
 
 .modal-overlay {

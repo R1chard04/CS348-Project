@@ -27,7 +27,7 @@ def extract_food_prices(conn, cursor, isProdDatabase=False):
         
         # Insert food_quantity
         foodQuantity = re.search(r'\d+\.?\d*|\.\d+', foodProductArr[1])
-        insertRow.append(foodQuantity.group(0)) if foodQuantity else insertRow.append(1)
+        insertRow.append(float(foodQuantity.group(0))) if foodQuantity else insertRow.append(1)
         
         # Insert food_metric
         foodMetric = foodProductArr[1].strip().split(' ')[-1]

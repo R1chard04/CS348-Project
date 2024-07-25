@@ -143,23 +143,23 @@ const Table = ({ rows, tableType }) => {
                     <div>
                         <div className='modal-header'>
                             <h2>Recipe Details</h2>
-                            <button onClick={closeModal}>Close</button>
+                            <button onClick={closeModal}>X</button>
                         </div>
                         <table>
                             <tbody>
                                 {Object.keys(expandedKeysMap).map((key, index) => (
-                                    <tr key={index}>
-                                        <td>{key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ')}:</td>
-                                        <td>{expandedValues && (key !== "steps" ? expandedValues[index] : expandedValues[index].slice(0, 50) + "...")}</td>
+                                    <tr className='modal-row' key={index}>
+                                        <td><b>{key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ')}:</b></td>
+                                        <td>{expandedValues && (key !== "steps" ? (expandedKeysMap[key] == 'int' && index !== 0 ? expandedValues[index].toFixed(2) : expandedValues[index]) : expandedValues[index].slice(0, 60).replace('[', '').replace('\'', '').replace('\', \'', ' ') + "...")}</td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                         <NutrientsChart
-                            calories={expandedValues && expandedValues[6]}
-                            protein={expandedValues && expandedValues[7]}
-                            carbs={expandedValues && expandedValues[8]}
-                            fat={expandedValues && expandedValues[9]}
+                            calories={expandedValues && Number(expandedValues[6])}
+                            protein={expandedValues && Number(expandedValues[7])}
+                            carbs={expandedValues && Number(expandedValues[8])}
+                            fat={expandedValues && Number(expandedValues[9])}
                         />
                     </div>
                 )}

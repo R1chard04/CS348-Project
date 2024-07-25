@@ -13,7 +13,13 @@ def calculate_bmi(weight, height):
     return bmi/10
 
 def getBmiTupleIndexes():
-    return list(bmi_df['Index'])
+    count = {}
+    for i in bmi_df['Index']:
+        if i in count:
+            count[i] += 1
+        else:
+            count[i] = 1
+    return count
 
 def bmi_distrbution(user_height, user_weight):
     user_bmi = calculate_bmi(user_weight, user_height)
@@ -39,4 +45,4 @@ def bmi_distrbution(user_height, user_weight):
     return plt
 
 # print(tuple(bmi_df['Index']))
-# bmi_distrbution(164,123)
+bmi_distrbution(164,123)

@@ -8,9 +8,9 @@ isProdDatabase = False # Set to True if using production database; otherwise Fal
 def extractDataIntoDatabase():
     (conn, cur) = get_cursor()
 
-    # extract_food_prices(conn, cur, isProdDatabase)
-    extract_food_nutrition(conn, cur, isProdDatabase)
-    # extract_food_recipes(conn, cur, isProdDatabase)
+    extract_food_prices(conn, cur, isProdDatabase)
+    # extract_food_nutrition(conn, cur, isProdDatabase)
+    extract_food_recipes(conn, cur, isProdDatabase)
     
     cur.close()
     conn.close()
