@@ -36,12 +36,12 @@ const App = () => {
 
   useEffect(() => {
     if (savedRecipe.length > 0) {
-      console.log("added recipes:", savedRecipe);
-      localStorage.setItem('savedRecipes', JSON.stringify(savedRecipe));
+        console.log("added recipes:", savedRecipe);
+        localStorage.setItem('savedRecipes', JSON.stringify(savedRecipe));
     }
   }, [savedRecipe]);
 
-  const deleteSavedRecipe = (id) => {
+const deleteSavedRecipe = (id) => {
     const newSavedRecipe = [...savedRecipe];
     newSavedRecipe.filter((recipe) => recipe.id !== id);
     setSavedRecipe(newSavedRecipe);

@@ -14,8 +14,8 @@ const recipeKeysMap = {
     "ingredients": "array", 
     "serving_size": "int", 
     "servings": "int", 
-
 };
+
 const nutritionKeysMap = {
     "recipe_id": "int", 
     "recipe_name": "varchar", 
@@ -24,6 +24,7 @@ const nutritionKeysMap = {
     "total_carbs": "float", 
     "total_fat": "float",
 };
+
 const priceKeysMap = {
     "food_name": "varchar", 
     "food_quantity": "int", 
@@ -50,9 +51,7 @@ const expandedKeysMap = {
     "fat": "int", 
 };
 
-
 const PAGINATION_SIZE = 5;
-
 
 const Table = ({ rows, tableType, setSavedRecipe, deleteSavedRecipe }) => {
     const [index, setIndex] = useState(0);
@@ -81,9 +80,12 @@ const Table = ({ rows, tableType, setSavedRecipe, deleteSavedRecipe }) => {
                 'Access-Control-Allow-Headers': '*',
             }
         }).then(response => response.json())
-            .then(data => { console.log("expanded values: ", data.msg[0]); setExpandedValues(data.msg[0]); })
+            .then(data => { 
+                console.log("expanded values: ", data.msg[0]); 
+                setExpandedValues(data.msg[0]); 
+            })
             .catch(error => console.error(error));
-    }
+    };
 
     return (
         <div className="table-root-container">
@@ -159,7 +161,7 @@ const Table = ({ rows, tableType, setSavedRecipe, deleteSavedRecipe }) => {
                             onClick={() => {
                                 setSavedRecipe(prevSavedRecipes => {
                                     let newSavedRecipe = [...prevSavedRecipes];
-                                    newSavedRecipe = newSavedRecipe.filter(recipe => recipe !== selectedRow[0])
+                                    newSavedRecipe = newSavedRecipe.filter(recipe => recipe !== selectedRow[0]);
                                     localStorage.setItem('savedRecipes', JSON.stringify(newSavedRecipe)); 
                                     return newSavedRecipe;
                                 });
@@ -173,7 +175,7 @@ const Table = ({ rows, tableType, setSavedRecipe, deleteSavedRecipe }) => {
                                 {Object.keys(expandedKeysMap).map((key, index) => (
                                     <tr className='modal-row' key={index}>
                                         <td><b>{key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ')}:</b></td>
-                                        <td>{expandedValues && (key !== "steps" ? (expandedKeysMap[key] == 'int' && index !== 0 ? expandedValues[index].toFixed(2) : expandedValues[index]) : expandedValues[index].slice(0, 60).replace('[', '').replace('\'', '').replace('\', \'', ' ') + "...")}</td>
+                                        <td>{expandedValues && (key !== "steps" ? (expandedKeysMap[key] === 'int' && index !== 0 ? expandedValues[index].toFixed(2) : expandedValues[index]) : expandedValues[index].slice(0, 60).replace('[', '').replace('\'', '').replace('\', \'', ' ') + "...")}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -189,6 +191,6 @@ const Table = ({ rows, tableType, setSavedRecipe, deleteSavedRecipe }) => {
             </Modal>
         </div>
     );
-}
+};
 
 export default Table;
