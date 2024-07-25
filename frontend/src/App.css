@@ -59,48 +59,30 @@
     transform: rotate(360deg);
   }
 }
-/* Styling for the saved recipes button */
-.savedRecipeButton {
-  padding: 0;
-  margin: 10px 0;
+.saved-recipes-button {
+  padding: 12px 24px;
+  margin-top: 10px;
   border: none;
-  border-radius: 4px;
-  background-color: transparent;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-}
-
-.savedRecipeButton:hover {
-  transform: scale(1.02);
-}
-
-.savedRecipeButton:active {
-  transform: scale(0.98);
-}
-
-/* Styling for the saved recipes link inside the button */
-.savedRecipeLink {
-  display: inline-block;
-  padding: 10px 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
   background-color: #007bff;
   color: white;
-  text-decoration: none;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.savedRecipeLink:hover {
-  background-color: #0056b3;
-}
-
-.savedRecipeLink:active {
+.saved-recipes-button:hover {
   background-color: #003d80;
 }
 
-.savedRecipeLink.active-link {
-  background-color: #0056b3; /* Ensures the active link has the same hover color */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slightly darker shadow for active state */
+.saved-recipes-button:active {
+  background-color: #002d5c;
+}
+
+/* Make the text inside NavLink white */
+.saved-recipes-button .active-link, .saved-recipes-button .active-link:visited, .saved-recipes-button .active-link:hover {
+  color: white;
+  text-decoration: none; /* Remove underline */
 }

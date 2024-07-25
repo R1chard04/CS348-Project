@@ -1,8 +1,7 @@
-import React from 'react';
-import {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from './Table.js';
 
-const SavedRecipes = ({recipes, setSavedRecipe}) => {
+const SavedRecipes = ({ recipes, setSavedRecipe }) => {
     const [recipeList, setRecipeList] = useState([]);
     const [_, forceUpdate] = useState(0);
 
@@ -18,12 +17,10 @@ const SavedRecipes = ({recipes, setSavedRecipe}) => {
                 })
                 .catch(error => console.error(error));
             }
-
-            setRecipeList([...newRecipes]); // Update state once with all new recipes
         }
 
         fetchRecipeInfo();
-    }, [recipes]); // Adding recipes as a dependency to the useEffect hook
+    }, [recipes]);
 
     return (
         <div>

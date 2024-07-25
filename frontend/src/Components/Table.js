@@ -16,6 +16,7 @@ const recipeKeysMap = {
     "serving_size": "int", 
     "servings": "int", 
 };
+
 const nutritionKeysMap = {
     "recipe_id": "int", 
     "recipe_name": "varchar", 
@@ -27,6 +28,7 @@ const nutritionKeysMap = {
     "total_vitamin_e": "int",
     "total_vitamin_d": "int",
 };
+
 const priceKeysMap = {
     "id": "int", 
     "recipe_name": "varchar", 
@@ -77,7 +79,6 @@ const savedRecipeKeysMap = {
     "remove": "button"
 };
 
-
 const PAGINATION_SIZE = 5;
 
 
@@ -127,9 +128,12 @@ const Table = ({ rows, tableType, setSavedRecipe, forceUpdate }) => {
                 'Access-Control-Allow-Headers': '*',
             }
         }).then(response => response.json())
-            .then(data => { console.log("expanded values: ", data.msg[0]); setExpandedValues(data.msg[0]); })
+            .then(data => { 
+                console.log("expanded values: ", data.msg[0]); 
+                setExpandedValues(data.msg[0]); 
+            })
             .catch(error => console.error(error));
-    }
+    };
 
     return (
         <div className="table-root-container">
@@ -237,6 +241,6 @@ const Table = ({ rows, tableType, setSavedRecipe, forceUpdate }) => {
             </Modal>
         </div>
     );
-}
+};
 
 export default Table;
