@@ -13,6 +13,7 @@ const RecipeAdder = () => {
     const [servings, setServings] = useState(0);
     const [steps, setSteps] = useState('');
     const [recipeName, setRecipeName] = useState('');
+    const [description, setDescription] = useState('');
     const [search, setSearch] = useState('');
 
     const onAddIngredient = (addItem) => {
@@ -21,22 +22,16 @@ const RecipeAdder = () => {
     };
 
     const onAddRecipe = () => {
-        // TODO: ADD ENDPOINT TO ADD RECIPE INTO DATABASE 
-        console.log("recipe name: ", recipeName);
-        console.log("servings: ", servings);   
-        console.log("serving size: ", servingSize);
-        console.log("steps: ", steps);
-        console.log("ingredients: ", ingredients); 
-        console.log(`http://127.0.0.1:5000/addrecipe/${recipeName}/${servings}/${servingSize}/${steps}/${ingredients.join(',')}`);
-
-        fetch(`http://127.0.0.1:5000/addrecipe/${recipeName}/${servings}/${servingSize}/${steps}/${ingredients.join(',')}`, {
+{/* <name>/<description>/<servings>/<servingSize>/<steps>/<ingredients></ingredients> */}
+        fetch(`http://127.0.0.1:5000/addrecipe/${recipeName}/${description}/${servings}/${servingSize}/${steps}/${ingredients.join(',')}`, {
+            method: 'POST',
             headers: {
                 'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/',
                 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
                 'Access-Control-Allow-Headers': '*',
             }
         }).then(response => response.json())
-            .then(data => { console.log("success"); })
+            .then(data => { console.log("msg", data.msg); })
             .catch(error => console.error(error));
 
     }
@@ -69,6 +64,16 @@ const RecipeAdder = () => {
                     placeholder="Add Recipe Name"
                     value={recipeName}
                     onChange={(e) => setRecipeName(e.target.value)}
+                />
+            </div>
+
+            <div className="nameContainer">
+                <div>Recipe Description</div>
+                <input
+                    type="text"
+                    placeholder="Add Recipe Description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                 />
             </div>
 

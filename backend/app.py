@@ -7,7 +7,7 @@ import json
 import urllib.parse
 from fancy_features import bmi_table, dri_table, nutrient_data, recipe_data, recipe_healthy
 from connect import get_cursor
-from db_queries.feature_queries import getRecipeById, getRecipeByName, getSearchByName, getAllRecipes, r6_get, r7_get, r8_get, r9_price_get, r9_protein_content_get, r10_get
+from db_queries.feature_queries import getRecipeById, getRecipeByName, getSearchByName, getAllRecipes, r6_get, r7_get, r8_get, r9_price_get, r9_protein_content_get, r10_get, r11_add_new_recipe
 
 
 app = Flask(__name__)
@@ -225,14 +225,15 @@ def getBMIPlot():
 #     return jsonify({'nutritionPlot': nutritionPlot})
 
 # Feature 6: Get recipes by ingredients
-# @app.route('/addrecipe/<name>/<servings>/<servingSize>/<steps>/<ingredients>', methods=['POST'])
-# @cross_origin()
-# def getRecipesByIngredients(ingredients):
-#     decodedIngredients = urllib.parse.unquote(ingredients).split(',')
-#     cur.execute(r6_get(decodedIngredients))
-#     rows = cur.fetchall()
-#     print(rows)
-#     return jsonify({'msg': rows})
+@app.route('/addrecipe/<name>/<description>/<servings>/<servingSize>/<steps>/<ingredients>', methods=['POST'])
+@cross_origin()
+def addaRecipe(name, description, servings, servingSize, steps, ingredients):
+    decodedIngredients = urllib.parse.unquote(ingredients).replace('\'', '').split(',')
+    print(name, description, servings, servingSize, steps, decodedIngredients)
+    execs = r11_add_new_recipe(name, description, decodedIngredients, servingSize, servings, steps)
+    cur.execute(execs[0])
+    cur.execute(execs[1])
+    return jsonify({'msg': 'success'})
 
 if __name__ == '__main__':
     app.run()
