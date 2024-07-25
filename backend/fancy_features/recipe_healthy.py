@@ -45,7 +45,7 @@ def plot_nutritional_info(df, recipe_id):
         plt.grid(axis='y')
 
         plt.tight_layout()
-        plt.show()
+        # plt.show()
 
         print(f"\nHealth Assessment for {recipe_name}:\n")
         if is_healthy(calories, protein, carbs, fat):
@@ -85,5 +85,5 @@ def plot_nutritional_info(df, recipe_id):
         comp_df.plot(kind='pie', subplots=True, autopct='%1.1f%%', startangle=140, fontsize=10)
         plt.suptitle(f"Nutritional Intake Percentage Comparison for {recipe_name}", fontsize=16, fontweight='bold')
         plt.tight_layout()
-        plt.show()
+        # plt.show()
         return plt

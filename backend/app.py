@@ -8,6 +8,11 @@ import urllib.parse
 from fancy_features import bmi_table, dri_table, nutrient_data, recipe_data, recipe_healthy
 from connect import get_cursor
 from db_queries.feature_queries import getRecipeById, getRecipeByName, getSearchByName, getAllRecipes, r6_get, r7_get, r8_get, r9_price_get, r9_protein_content_get, r10_get
+import matplotlib.pyplot as plt
+from chart_studio import plotly
+import plotly.tools as tls
+import plotly.graph_objs as go
+import os
 
 
 app = Flask(__name__)
@@ -25,176 +30,176 @@ cache = Cache(app)
 # PostgreSQL connection
 (conn, cur) = get_cursor()
 
-@app.route('/', methods=['GET'])
-@cross_origin()
-@cache.cached(timeout=50)
-def getEveryRecipe():
-    cacheKey = 'allrecipes'
-    cachedData = cache.get(cacheKey)
-    if cachedData:
-        print("cache hit")
-        return jsonify({'msg': cachedData})
-    cur.execute(getAllRecipes())
-    rows = cur.fetchall()
-    cache.set(cacheKey, rows)
-    return jsonify({'msg': rows})
+# @app.route('/', methods=['GET'])
+# @cross_origin()
+# @cache.cached(timeout=50)
+# def getEveryRecipe():
+#     cacheKey = 'allrecipes'
+#     cachedData = cache.get(cacheKey)
+#     if cachedData:
+#         print("cache hit")
+#         return jsonify({'msg': cachedData})
+#     cur.execute(getAllRecipes())
+#     rows = cur.fetchall()
+#     cache.set(cacheKey, rows)
+#     return jsonify({'msg': rows})
 
-# Get recipe by ID
-@app.route('/getrecipe/<id>', methods=['GET'])
-@cross_origin()
-@cache.cached(timeout=50)
-def getRecipe(id):
-    if not id.isnumeric():
-        return jsonify({
-            'msg': [],
-            'error': 'Invalid recipe ID'})
-    cacheKey = f'recipeid_{id}'
-    cachedData = cache.get(cacheKey)
-    if cachedData:
-        return jsonify({'msg': cachedData})
-    cur.execute(getRecipeById(id))
-    rows = cur.fetchall()
-    cache.set(cacheKey, rows)
-    return jsonify({'msg': rows})
+# # Get recipe by ID
+# @app.route('/getrecipe/<id>', methods=['GET'])
+# @cross_origin()
+# @cache.cached(timeout=50)
+# def getRecipe(id):
+#     if not id.isnumeric():
+#         return jsonify({
+#             'msg': [],
+#             'error': 'Invalid recipe ID'})
+#     cacheKey = f'recipeid_{id}'
+#     cachedData = cache.get(cacheKey)
+#     if cachedData:
+#         return jsonify({'msg': cachedData})
+#     cur.execute(getRecipeById(id))
+#     rows = cur.fetchall()
+#     cache.set(cacheKey, rows)
+#     return jsonify({'msg': rows})
 
-# Get recipe by name
-@app.route('/getrecipebyname/<name>', methods=['GET'])
-@cross_origin()
-@cache.cached(timeout=50)
-def getRecipeName(name):
-    decodedName = urllib.parse.unquote(name)
-    cacheKey = f'recipename_{decodedName}'
-    cachedData = cache.get(cacheKey)
-    if cachedData:
-        return jsonify({'msg': cachedData})
-    cur.execute(getRecipeByName(decodedName))
-    rows = cur.fetchall()
-    cache.set(cacheKey, rows)
-    return jsonify({'msg': rows})
+# # Get recipe by name
+# @app.route('/getrecipebyname/<name>', methods=['GET'])
+# @cross_origin()
+# @cache.cached(timeout=50)
+# def getRecipeName(name):
+#     decodedName = urllib.parse.unquote(name)
+#     cacheKey = f'recipename_{decodedName}'
+#     cachedData = cache.get(cacheKey)
+#     if cachedData:
+#         return jsonify({'msg': cachedData})
+#     cur.execute(getRecipeByName(decodedName))
+#     rows = cur.fetchall()
+#     cache.set(cacheKey, rows)
+#     return jsonify({'msg': rows})
 
-# Search by (similar) name
-@app.route('/searchname/<search>', methods=['GET'])
-@cross_origin()
-@cache.cached(timeout=50)
-def search(search):
-    cacheKey = f'searchname_{search}'
-    cachedData = cache.get(cacheKey)
-    if cachedData:
-        return jsonify({'msg': cachedData})
-    cur.execute(getSearchByName(search))
-    rows = cur.fetchall()
-    cache.set(cacheKey, rows)
-    return jsonify({'msg': rows})
+# # Search by (similar) name
+# @app.route('/searchname/<search>', methods=['GET'])
+# @cross_origin()
+# @cache.cached(timeout=50)
+# def search(search):
+#     cacheKey = f'searchname_{search}'
+#     cachedData = cache.get(cacheKey)
+#     if cachedData:
+#         return jsonify({'msg': cachedData})
+#     cur.execute(getSearchByName(search))
+#     rows = cur.fetchall()
+#     cache.set(cacheKey, rows)
+#     return jsonify({'msg': rows})
 
-@app.route('/getallingredients/', methods=['GET'])
-@cross_origin()
-@cache.cached(timeout=50)
-def getAllIngredients():
-    cacheKey = 'allingredients'
-    cachedData = cache.get(cacheKey)
-    if cachedData:
-        return jsonify({'msg': cachedData})
-    cur.execute("SELECT DISTINCT iname FROM ingredients;")
-    rows = cur.fetchall()
-    cache.set(cacheKey, rows)
-    return jsonify({'msg': rows})
+# @app.route('/getallingredients/', methods=['GET'])
+# @cross_origin()
+# @cache.cached(timeout=50)
+# def getAllIngredients():
+#     cacheKey = 'allingredients'
+#     cachedData = cache.get(cacheKey)
+#     if cachedData:
+#         return jsonify({'msg': cachedData})
+#     cur.execute("SELECT DISTINCT iname FROM ingredients;")
+#     rows = cur.fetchall()
+#     cache.set(cacheKey, rows)
+#     return jsonify({'msg': rows})
 
-# Feature 6: Get recipes by ingredients
-@app.route('/getrecipesbyingredients/<ingredients>', methods=['GET'])
-@cross_origin()
-@cache.cached(timeout=50)
-def getRecipesByIngredients(ingredients):
-    decodedIngredients = urllib.parse.unquote(ingredients).split(',')
-    cacheKey = f'recipesbyingredients_{ingredients}'
-    cachedData = cache.get(cacheKey)
-    if cachedData:
-        return jsonify({'msg': cachedData})
-    cur.execute(r6_get(decodedIngredients))
-    rows = cur.fetchall()
-    cache.set(cacheKey, rows)
-    return jsonify({'msg': rows})
+# # Feature 6: Get recipes by ingredients
+# @app.route('/getrecipesbyingredients/<ingredients>', methods=['GET'])
+# @cross_origin()
+# @cache.cached(timeout=50)
+# def getRecipesByIngredients(ingredients):
+#     decodedIngredients = urllib.parse.unquote(ingredients).split(',')
+#     cacheKey = f'recipesbyingredients_{ingredients}'
+#     cachedData = cache.get(cacheKey)
+#     if cachedData:
+#         return jsonify({'msg': cachedData})
+#     cur.execute(r6_get(decodedIngredients))
+#     rows = cur.fetchall()
+#     cache.set(cacheKey, rows)
+#     return jsonify({'msg': rows})
 
-# Feature 7: Get macros of recipe id
-@app.route('/getmacrosbyid/<id>', methods=['GET'])
-@cross_origin()
-@cache.cached(timeout=50)
-def getMacrosById(id):
-    if not id.isnumeric():
-        return jsonify({
-            'msg': [],
-            'error': 'Invalid recipe ID'})
-    cacheKey = f'macrosbyid_{id}'
-    cachedData = cache.get(cacheKey)
-    if cachedData:
-        return jsonify({'msg': cachedData})
-    cur.execute(r7_get(id))
-    rows = cur.fetchall()
-    cache.set(cacheKey, rows)
-    return jsonify({'msg': rows})
+# # Feature 7: Get macros of recipe id
+# @app.route('/getmacrosbyid/<id>', methods=['GET'])
+# @cross_origin()
+# @cache.cached(timeout=50)
+# def getMacrosById(id):
+#     if not id.isnumeric():
+#         return jsonify({
+#             'msg': [],
+#             'error': 'Invalid recipe ID'})
+#     cacheKey = f'macrosbyid_{id}'
+#     cachedData = cache.get(cacheKey)
+#     if cachedData:
+#         return jsonify({'msg': cachedData})
+#     cur.execute(r7_get(id))
+#     rows = cur.fetchall()
+#     cache.set(cacheKey, rows)
+#     return jsonify({'msg': rows})
 
-# Feature 8: price calculation of recipe id
-@app.route('/getpricebyid/<id>', methods=['GET'])
-@cross_origin()
-@cache.cached(timeout=50)
-def getPriceById(id):
-    if not id.isnumeric():
-        return jsonify({
-            'msg': [],
-            'error': 'Invalid recipe ID'})
-    cacheKey = f'pricebyid_{id}'
-    cachedData = cache.get(cacheKey)
-    if cachedData:
-        return jsonify({'msg': cachedData})
-    cur.execute(r7_get(id))
-    rows = cur.fetchall()
-    cache.set(cacheKey, rows)
-    return jsonify({'msg': rows})
+# # Feature 8: price calculation of recipe id
+# @app.route('/getpricebyid/<id>', methods=['GET'])
+# @cross_origin()
+# @cache.cached(timeout=50)
+# def getPriceById(id):
+#     if not id.isnumeric():
+#         return jsonify({
+#             'msg': [],
+#             'error': 'Invalid recipe ID'})
+#     cacheKey = f'pricebyid_{id}'
+#     cachedData = cache.get(cacheKey)
+#     if cachedData:
+#         return jsonify({'msg': cachedData})
+#     cur.execute(r7_get(id))
+#     rows = cur.fetchall()
+#     cache.set(cacheKey, rows)
+#     return jsonify({'msg': rows})
 
-# Feature 9a: cheapest recipes
-@app.route('/getmostexpensive/', methods=['GET'])
-@cross_origin()
-@cache.cached(timeout=50)
-def getMostExpensive():
-    cacheKey = 'mostexpensive'
-    cachedData = cache.get(cacheKey)
-    if cachedData:
-        return jsonify({'msg': cachedData})
-    cur.execute(r9_price_get())
-    rows = cur.fetchall()
-    cache.set(cacheKey, rows)
-    return jsonify({'msg': rows})
+# # Feature 9a: cheapest recipes
+# @app.route('/getmostexpensive/', methods=['GET'])
+# @cross_origin()
+# @cache.cached(timeout=50)
+# def getMostExpensive():
+#     cacheKey = 'mostexpensive'
+#     cachedData = cache.get(cacheKey)
+#     if cachedData:
+#         return jsonify({'msg': cachedData})
+#     cur.execute(r9_price_get())
+#     rows = cur.fetchall()
+#     cache.set(cacheKey, rows)
+#     return jsonify({'msg': rows})
 
-# Feature 9: recipes with most protein
-@app.route('/getmostprotein/', methods=['GET'])
-@cross_origin()
-@cache.cached(timeout=50)
-def getMostProtein():
-    cacheKey = 'mostprotein'
-    cachedData = cache.get(cacheKey)
-    if cachedData:
-        return jsonify({'msg': cachedData})
-    cur.execute(r9_protein_content_get())
-    rows = cur.fetchall()
-    cache.set(cacheKey, rows)
-    return jsonify({'msg': rows})
+# # Feature 9: recipes with most protein
+# @app.route('/getmostprotein/', methods=['GET'])
+# @cross_origin()
+# @cache.cached(timeout=50)
+# def getMostProtein():
+#     cacheKey = 'mostprotein'
+#     cachedData = cache.get(cacheKey)
+#     if cachedData:
+#         return jsonify({'msg': cachedData})
+#     cur.execute(r9_protein_content_get())
+#     rows = cur.fetchall()
+#     cache.set(cacheKey, rows)
+#     return jsonify({'msg': rows})
 
-# Feature 10: Get useful recipe info
-@app.route('/getgeneralrecipeinfo/<id>', methods=['GET'])
-@cross_origin()
-@cache.cached(timeout=50)
-def getGeneralRecipeInfo(id):
-    if not id.isnumeric():
-        return jsonify({
-            'msg': [],
-            'error': 'Invalid recipe ID'})
-    cacheKey = f'generalrecipeinfo_{id}'
-    cachedData = cache.get(cacheKey)
-    if cachedData:
-        return jsonify({'msg': cachedData})
-    cur.execute(r10_get(id))
-    rows = cur.fetchall()
-    cache.set(cacheKey, rows)
-    return jsonify({'msg': rows})
+# # Feature 10: Get useful recipe info
+# @app.route('/getgeneralrecipeinfo/<id>', methods=['GET'])
+# @cross_origin()
+# @cache.cached(timeout=50)
+# def getGeneralRecipeInfo(id):
+#     if not id.isnumeric():
+#         return jsonify({
+#             'msg': [],
+#             'error': 'Invalid recipe ID'})
+#     cacheKey = f'generalrecipeinfo_{id}'
+#     cachedData = cache.get(cacheKey)
+#     if cachedData:
+#         return jsonify({'msg': cachedData})
+#     cur.execute(r10_get(id))
+#     rows = cur.fetchall()
+#     cache.set(cacheKey, rows)
+    # return jsonify({'msg': rows})
 
 @app.route('/getbmi/<weight>/<height>', methods=['GET'])
 @cross_origin()
@@ -203,12 +208,31 @@ def getBMI(weight, height):
     print(bmi)
     return jsonify({'msg': bmi})
 
-# @app.route('/getbmiplot/<weight>/<height>', methods=['GET'])
-# @cross_origin()
-# def getBMIPlot(weight, height):
-#     bmiPlot = bmi_table.bmi_distribution(weight, height)
-#     # ====================== needs work? 
-#     return jsonify({'bmiPlot': bmiPlot})
+@app.route('/getbmiplot/<weight>/<height>', methods=['GET'])
+@cross_origin()
+def getBMIPlot(weight, height):
+    fig_hist = bmi_table.bmi_distribution(int(weight), int(height))
+
+    # Save the plot as an image file in the frontend/public folder
+    image_path = os.path.join(os.path.dirname(__file__), '..\\frontend\\public\\bmiPlot.png')
+
+    try:
+        if os.path.exists(image_path):
+            os.remove(image_path)
+    except Exception as e:
+        print(f"Error removing file: {e}")
+
+    try:
+        fig_hist.savefig(image_path)
+        plt.close(fig)  # Close the figure to free memory
+    except Exception as e:
+        print(f"Error saving figure: {e}")
+
+    return jsonify({'message': 'BMI plot saved', 'image_path': '/bmiPlot.png'})
+
+    # print("all good");
+
+    return jsonify({'message': 'BMI plot saved', 'image_path': '/bmiPlot.png'})
 
 # @app.route('/getingredientgraph/<iname>', methods=['GET'])
 # @cross_origin()

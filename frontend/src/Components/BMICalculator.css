@@ -49,3 +49,12 @@
 .fetchBMI:active, .fetchBMIPlot:active {
     background-color: #003d80;
 }
+
+.bmi-plot {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Center the image horizontally */
+    border-radius: 10px; /* Optional: to match the container's border-radius */
+}
+

@@ -1,11 +1,12 @@
 import React from 'react'
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import './BMICalculator.css'
 
 const BMICalculator = () => {
     const [height, setHeight] = useState(0); 
     const [weight, setWeight] = useState(0); 
     const [bmi, setBMI] = useState(0);
+    const [hasPlot, setHasPlot] = useState(false);
 
     const getBMI = () => {
         fetch(`http://127.0.0.1:5000/getbmi/${weight}/${height}`, {
@@ -18,12 +19,24 @@ const BMICalculator = () => {
             .then(data => { console.log("msg: ", data); setBMI(data.msg); })
             .catch(error => console.error(error));
     }
-    const getBMIPlot = () => {
 
+    const getBMIPlot = () => {
+        fetch(`http://127.0.0.1:5000/getbmiplot/${weight}/${height}`, {
+            headers: {
+                'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers': '*',
+            }
+        }).then(response => {return response.json();})
+            .then(data => { 
+                console.log("Plot data: ", data);
+                setHasPlot(true);
+            })
+            .catch(error => console.error("MISTAKE: ", error));
     }
 
     return (
-        <div className = "enter-BMI-container">
+        <div className="enter-BMI-container">
             <div>Height</div>
             <input
                 type="number"
@@ -38,13 +51,17 @@ const BMICalculator = () => {
                 value={weight}
                 onChange={(e) => setWeight(e.target.value)}
             />
-            <button className = "fetchBMI" onClick = {() => getBMI()}>
+            <button className="fetchBMI" onClick={getBMI}>
                 Calculate your BMI 
             </button>
 
-            <button className = "fetchBMIPlot" onClick = {() => getBMIPlot()}>
+            <button className="fetchBMIPlot" onClick={getBMIPlot}>
                 Get a BMI Plot
             </button>
+
+            {hasPlot && 
+                <img className="bmi-plot" src="/bmiPlot.png" alt="BMI Plot" />
+            }
 
             <h1>{bmi ? bmi : ''}</h1>
         </div>
