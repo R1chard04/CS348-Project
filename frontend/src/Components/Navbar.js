@@ -26,6 +26,10 @@ const Navbar = () => {
                     <li>
                         <NavLink to="/add-recipe" onClick={handleToggle} activeClassName="active-link">Add a recipe</NavLink>
                     </li>
+
+                    <li>
+                        <NavLink to="/recommend-recipes" onClick={handleToggle} activeClassName="active-link">Recommended Recipes</NavLink>
+                    </li>
                 </ul>
             </div>
         </nav>

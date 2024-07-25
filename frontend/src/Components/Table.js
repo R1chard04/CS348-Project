@@ -19,39 +19,22 @@ const recipeKeysMap = {
 const nutritionKeysMap = {
     "recipe_id": "int", 
     "recipe_name": "varchar", 
-    "calories": "int", 
-    "total_protein": "int", 
-    "total_carbs": "int", 
-    "total_fat": "int",
-    "total_sugar": "int",
-    "total_vitamin_e": "int",
-    "total_vitamin_d": "int",
+    "calories": "float", 
+    "total_protein": "float", 
+    "total_carbs": "float", 
+    "total_fat": "float",
 };
 const priceKeysMap = {
-    "id": "int", 
-    "recipe_name": "varchar", 
-    "cost": "int"
+    "food_name": "varchar", 
+    "food_quantity": "int", 
+    "food_metric": "int", 
+    "price": "float"
 };
 
 const ingredientKeysMap = {
     "id": "int", 
     "recipe_name": "varchar", 
-    "matched_ingredients": "int",
-};
-
-const expensiveKeysMap = {
-    "id": "int",
-    "recipe_name": "varchar",
-    "cost": "int",
-};
-
-const proteinKeysMap = {
-    "id": "int",
-    "recipe_name": "varchar",
-    "calories": "float",
-    "protein": "float",
-    "carbs": "float",
-    "fat": "float",
+    "count": "int",
 };
 
 const expandedKeysMap = {
@@ -61,29 +44,23 @@ const expandedKeysMap = {
     "steps": "varchar",
     "serving_size": "int", 
     "servings": "int", 
-    "calories": "float", 
-    "protein": "float", 
-    "carbs": "float", 
-    "fat": "float", 
+    "calories": "int", 
+    "protein": "int", 
+    "carbs": "int", 
+    "fat": "int", 
 };
 
 
 const PAGINATION_SIZE = 5;
 
 
-const Table = ({ rows, tableType, setSavedRecipe }) => {
+const Table = ({ rows, tableType, setSavedRecipe, deleteSavedRecipe }) => {
     const [index, setIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
     const [expandedValues, setExpandedValues] = useState(null);
 
-    let useMap = null;
-    if (tableType === "recipe") useMap = recipeKeysMap;
-    else if (tableType === "nutrition") useMap = nutritionKeysMap;
-    else if (tableType === "ingredients") useMap = ingredientKeysMap;
-    else if (tableType === "price") useMap = priceKeysMap;
-    else if (tableType === "expensive") useMap = expensiveKeysMap;
-    else if (tableType === "protein") useMap = proteinKeysMap;
+    const useMap = tableType === "recipe" ? recipeKeysMap : tableType === "nutrition" ? nutritionKeysMap : tableType === "ingredients" ? ingredientKeysMap : priceKeysMap;
 
     const handleRowClick = (row) => {
         setSelectedRow(row);
@@ -131,7 +108,7 @@ const Table = ({ rows, tableType, setSavedRecipe }) => {
                         >
                             {Object.keys(useMap).map((key, cellIndex) => (
                                 <td className="table-body-data" key={cellIndex}>
-                                    {useMap[key] !== "array" ? (useMap[key] === "float" ? row[cellIndex].toFixed(2) : row[cellIndex]) : row[cellIndex] + ","}
+                                    {useMap[key] !== "array" ? row[cellIndex] : row[cellIndex] + ","}
                                 </td>
                             ))}
                         </tr>
@@ -177,12 +154,26 @@ const Table = ({ rows, tableType, setSavedRecipe }) => {
                         >
                             Save Recipe
                         </button>
+                        <button
+                            className='modal-save-button'
+                            onClick={() => {
+                                setSavedRecipe(prevSavedRecipes => {
+                                    let newSavedRecipe = [...prevSavedRecipes];
+                                    newSavedRecipe = newSavedRecipe.filter(recipe => recipe !== selectedRow[0])
+                                    localStorage.setItem('savedRecipes', JSON.stringify(newSavedRecipe)); 
+                                    return newSavedRecipe;
+                                });
+                                closeModal();
+                            }}
+                        >
+                            Delete Recipe
+                        </button>
                         <table>
                             <tbody>
                                 {Object.keys(expandedKeysMap).map((key, index) => (
                                     <tr className='modal-row' key={index}>
                                         <td><b>{key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ')}:</b></td>
-                                        <td>{expandedValues && (key !== "steps" ? (expandedKeysMap[key] === 'int' && index !== 0 ? expandedValues[index].toFixed(2) : expandedValues[index]) : expandedValues[index].slice(0, 60).replace('[', '').replace('\'', '').replace('\', \'', ' ') + "...")}</td>
+                                        <td>{expandedValues && (key !== "steps" ? (expandedKeysMap[key] == 'int' && index !== 0 ? expandedValues[index].toFixed(2) : expandedValues[index]) : expandedValues[index].slice(0, 60).replace('[', '').replace('\'', '').replace('\', \'', ' ') + "...")}</td>
                                     </tr>
                                 ))}
                             </tbody>

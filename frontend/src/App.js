@@ -9,6 +9,7 @@ import Navbar from './Components/Navbar';
 import BMICalculator from './Components/BMICalculator';
 import RecipeAdder from './Components/RecipeAdder';
 import SavedRecipes from './Components/SavedRecipes';
+import RecommendRecipe from './Components/RecommendRecipe';
 
 const App = () => {
   const [message, setMessage] = useState('');
@@ -40,6 +41,12 @@ const App = () => {
     }
   }, [savedRecipe]);
 
+  const deleteSavedRecipe = (id) => {
+    const newSavedRecipe = [...savedRecipe];
+    newSavedRecipe.filter((recipe) => recipe.id !== id);
+    setSavedRecipe(newSavedRecipe);
+  }
+
   return (
     <Router>
       <div className="App">
@@ -54,7 +61,8 @@ const App = () => {
           <Route path="/" element={<MainPage setSavedRecipe={setSavedRecipe} />} />
           <Route path="/bmi-calculator" element={<BMICalculator />} />
           <Route path="/add-recipe" element={<RecipeAdder />} />
-          <Route path="/saved-recipes" element={<SavedRecipes recipes={savedRecipe} setSavedRecipe={setSavedRecipe} />} />
+          <Route path="/saved-recipes" element={<SavedRecipes recipes={savedRecipe} setSavedRecipe={setSavedRecipe}/>} />
+          <Route path="/recommend-recipes" element={<RecommendRecipe/> } />
         </Routes>
       </div>
     </Router>
