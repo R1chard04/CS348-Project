@@ -203,12 +203,12 @@ def getBMI(weight, height):
     print(bmi)
     return jsonify({'msg': bmi})
 
-# @app.route('/getbmiplot/<weight>/<height>', methods=['GET'])
-# @cross_origin()
-# def getBMIPlot(weight, height):
-#     bmiPlot = bmi_table.bmi_distribution(weight, height)
-#     # ====================== needs work? 
-#     return jsonify({'bmiPlot': bmiPlot})
+@app.route('/getbmiplot/', methods=['GET'])
+@cross_origin()
+def getBMIPlot():
+    bmiIndexes = bmi_table.getBmiTupleIndexes()
+    print('bmiIndexes:', bmiIndexes)
+    return jsonify({'msg': bmiIndexes})
 
 # @app.route('/getingredientgraph/<iname>', methods=['GET'])
 # @cross_origin()
