@@ -52,7 +52,7 @@ const App = () => {
       <div className="App">
         <div className="navbar-container">
           <Navbar className="app-navbar" />
-          <button>
+          <button className="saved-recipes-button">
             <NavLink exact to="/saved-recipes" activeClassName="active-link">View saved recipes: {savedRecipe.length}</NavLink>
           </button>
         </div>

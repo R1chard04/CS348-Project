@@ -65,3 +65,10 @@ createIngredientsInRecipeRelation = """
     );
 """
 
+createSavedRecipesRelation = """
+    CREATE TABLE SavedRecipes ( 
+    recipeId INT NOT NULL,
+    PRIMARY KEY (recipeId),
+    FOREIGN KEY (recipeId) REFERENCES Recipes(rId)
+    );  
+"""

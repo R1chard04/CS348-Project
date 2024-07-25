@@ -6,6 +6,7 @@ import redis
 import json
 import urllib.parse
 from fancy_features import bmi_table, dri_table, nutrient_data, recipe_data, recipe_healthy, recommended_recipe
+
 from connect import get_cursor
 from db_queries.feature_queries import getRecipeById, getRecipeByName, getSearchByName, getAllRecipes, r6_get, r7_get, r8_get, r9_price_get, r9_protein_content_get, r10_get, r11_add_new_recipe
 
