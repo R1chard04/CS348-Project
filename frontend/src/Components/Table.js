@@ -54,7 +54,7 @@ const expandedKeysMap = {
 const PAGINATION_SIZE = 5;
 
 
-const Table = ({ rows, tableType }) => {
+const Table = ({ rows, tableType, setSavedRecipe }) => {
     const [index, setIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
@@ -145,6 +145,15 @@ const Table = ({ rows, tableType }) => {
                             <h2>Recipe Details</h2>
                             <button onClick={closeModal}>X</button>
                         </div>
+                        <button
+                            className='modal-save-button'
+                            onClick={() => {
+                                setSavedRecipe(prevSavedRecipes => [...prevSavedRecipes, selectedRow[0]]);
+                                closeModal();
+                            }}
+                        >
+                            Save Recipe
+                        </button>
                         <table>
                             <tbody>
                                 {Object.keys(expandedKeysMap).map((key, index) => (

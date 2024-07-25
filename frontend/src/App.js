@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-dom';
+
 
 import './App.css';
 
@@ -12,6 +13,7 @@ import RecipeAdder from './Components/RecipeAdder';
 const App = () => {
   const [message, setMessage] = useState('');
   const [recipe, setRecipe] = useState([]);
+  const [savedRecipe, setSavedRecipe] = useState([]);
 
   useEffect(() => {
     fetch('http://127.0.0.1:5000/', {
@@ -30,10 +32,13 @@ const App = () => {
       <div className="App">
         <div className="navbar-container">
           <Navbar className="app-navbar"/>
+          <button>
+            <NavLink exact to="/" activeClassName="active-link">View saved recipes: {savedRecipe.length}</NavLink>
+          </button>
         </div>
         <h1>Recipe Search</h1>
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<MainPage setSavedRecipe={setSavedRecipe}/>} />
           <Route path="/bmi-calculator" element={<BMICalculator />} />
           <Route path="/add-recipe" element={<RecipeAdder />} />
         </Routes>

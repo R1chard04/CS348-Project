@@ -29,7 +29,7 @@ const mostProteinSearchValToEndpoint = {
     recipe_name: 'getrecipebyname',
 };
 
-const MainPage = () => {
+const MainPage = ({ setSavedRecipe }) => {
     const [message, setMessage] = useState('');
     const [recipe, setRecipe] = useState([]);
     const [searchOption, setSearchOption] = useState('Basic Search');
@@ -80,7 +80,7 @@ const MainPage = () => {
             {searchOption === 'Most Expensive Search' && <ListBar setRecipe={setRecipe} itemList={ingredients}/>}
             {searchOption === 'Most Protein Search' && <ListBar setRecipe={setRecipe} itemList={ingredients}/>}
 
-            {recipe.length > 0 && searchOption === 'Basic Search' && <Table rows={recipe} tableType="recipe" />}
+            {recipe.length > 0 && searchOption === 'Basic Search' && <Table rows={recipe} tableType="recipe" setSavedRecipe={setSavedRecipe}/>}
             {recipe.length > 0 && searchOption === 'Advanced Search' && <Table rows={recipe} tableType="ingredients" />}
             {recipe.length > 0 && searchOption === 'Nutrition Search' && <Table rows={recipe} tableType="nutrition" />}
             {recipe.length > 0 && searchOption === 'Price Search' && <Table rows={recipe} tableType="price" />}

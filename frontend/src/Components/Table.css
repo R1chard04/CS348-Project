@@ -33,6 +33,7 @@
 
 .table-body-row {
     cursor: pointer;
+    text-align: left;
     background-color: #fff;
     transition: background-color 0.3s ease;
 }
@@ -91,7 +92,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .modal-row {
