@@ -40,6 +40,12 @@ const App = () => {
     }
   }, [savedRecipe]);
 
+  const deleteSavedRecipe = (id) => {
+    const newSavedRecipe = [...savedRecipe];
+    newSavedRecipe.filter((recipe) => recipe.id !== id);
+    setSavedRecipe(newSavedRecipe);
+  }
+
   return (
     <Router>
       <div className="App">
@@ -54,7 +60,7 @@ const App = () => {
           <Route path="/" element={<MainPage setSavedRecipe={setSavedRecipe} />} />
           <Route path="/bmi-calculator" element={<BMICalculator />} />
           <Route path="/add-recipe" element={<RecipeAdder />} />
-          <Route path="/saved-recipes" element={<SavedRecipes recipes={savedRecipe} setSavedRecipe={setSavedRecipe} />} />
+          <Route path="/saved-recipes" element={<SavedRecipes recipes={savedRecipe} setSavedRecipe={setSavedRecipe}/>} />
         </Routes>
       </div>
     </Router>
