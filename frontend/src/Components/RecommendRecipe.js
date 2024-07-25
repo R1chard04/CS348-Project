@@ -1,5 +1,8 @@
 import React from 'react'
 import {useState, useEffect} from 'react';
+import Table from './Table';
+
+import './RecommendRecipe.css';
 
 const RecommendRecipe = () => {
     const [bmi, setBmi] = useState(0)
@@ -20,16 +23,18 @@ const RecommendRecipe = () => {
     return (
         <div>
             <div>BMI</div>
-            <input
-                type="number"
-                placeholder="Enter your bmi"
-                value={bmi}
-                onChange={(e) => setBmi(e.target.value)}
-            />
-            <button className = "fetchRecipes" onClick = {() => { getRecipes(); }}>
-                Get Recommended Recipes
-            </button>
-
+            <div className="search-bar">
+                <input
+                    type="number"
+                    placeholder="Enter your bmi"
+                    value={bmi}
+                    onChange={(e) => setBmi(e.target.value)}
+                />
+                <button className="recommended-recipe-button" onClick = {() => { getRecipes(); }}>
+                    Get Recommended Recipes
+                </button>
+            </div>
+            {recipeIdList.length > 0 && <Table rows={recipeIdList} tableType="recommended"></Table>}
         </div>
     )
     }

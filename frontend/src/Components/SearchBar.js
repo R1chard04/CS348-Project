@@ -35,7 +35,12 @@ const SearchBar = ({ setRecipe, valToEndpoint }) => {
 
     return (
         <div className="search-bar-container">
-            {valToEndpoint[val] === 'getleastexpensive' || valToEndpoint[val] === 'getmostprotein' ? <button onClick={handleClick}>Search</button> :
+            {valToEndpoint[val] === 'getleastexpensive' || valToEndpoint[val] === 'getmostprotein' ? 
+            <div className="search-bar">
+                <button onClick={handleClick}>Search</button>
+                <p>{err && err}</p>
+            </div>            
+            :
             <>
                 {valToEndpoint[val] === 'getrecipe' &&
                     <div id="dropdown-box">

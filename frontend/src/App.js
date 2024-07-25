@@ -50,7 +50,7 @@ const App = () => {
             <NavLink exact to="/saved-recipes" activeClassName="active-link">View saved recipes: {savedRecipe.length}</NavLink>
           </button>}
         </div>
-        <h1>Recipe Search</h1>
+        <h1 className="title">Recipe Search</h1>
         <Routes>
           <Route path="/" element={<MainPage setSavedRecipe={setSavedRecipe} />} />
           <Route path="/bmi-calculator" element={<BMICalculator />} />

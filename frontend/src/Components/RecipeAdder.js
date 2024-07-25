@@ -8,6 +8,7 @@ import './RecipeAdder.css';
 // recipe name 
 
 const RecipeAdder = () => {
+    const [msg, setMsg] = useState('');
     const [ingredients, setIngredients] = useState([]);
     const [servingSize, setServingSize] = useState(0);
     const [servings, setServings] = useState(0);
@@ -22,7 +23,6 @@ const RecipeAdder = () => {
     };
 
     const onAddRecipe = () => {
-{/* <name>/<description>/<servings>/<servingSize>/<steps>/<ingredients></ingredients> */}
         fetch(`http://127.0.0.1:5000/addrecipe/${recipeName}/${description}/${servings}/${servingSize}/${steps}/${ingredients.join(',')}`, {
             method: 'POST',
             headers: {
@@ -31,7 +31,7 @@ const RecipeAdder = () => {
                 'Access-Control-Allow-Headers': '*',
             }
         }).then(response => response.json())
-            .then(data => { console.log("msg", data.msg); })
+            .then(data => { console.log("msg", data.msg); setMsg(data.msg); })
             .catch(error => console.error(error));
 
     }
@@ -115,6 +115,7 @@ const RecipeAdder = () => {
             </div>
 
             <button className = "addFullRecipeButton" onClick = {() => onAddRecipe()}>Add Full Recipe</button> 
+            <h5 className='success-message'>{msg && msg}</h5>
 
             <div className="itemSection">
                 {ingredients.map((item) => (

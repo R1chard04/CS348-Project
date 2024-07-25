@@ -5,6 +5,7 @@ import './Navbar.css';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [selected, setSelected] = useState('home');
 
     const handleToggle = () => {
         setIsOpen(!isOpen);
@@ -17,18 +18,17 @@ const Navbar = () => {
                     <div className="nav-icon"></div>
                 </button>
                 <ul className={isOpen ? "nav-links show-nav" : "nav-links"}>
-                    <li>
-                        <NavLink exact to="/" onClick={handleToggle} activeClassName="active-link">Home</NavLink>
+                    <li className={`navbar-item ${selected === 'home' ? 'active' : ''}`} >
+                        <NavLink exact to="/" onClick={() => {handleToggle(); setSelected('home')}} activeClassName="active-link">Home</NavLink>
                     </li>
-                    <li>
-                        <NavLink to="/bmi-calculator" onClick={handleToggle} activeClassName="active-link">Calculate BMI</NavLink>
+                    <li className={`navbar-item ${selected === 'bmi' ? 'active' : ''}`} >
+                        <NavLink to="/bmi-calculator" onClick={() => {handleToggle(); setSelected('bmi')}} activeClassName="active-link">Calculate BMI</NavLink>
                     </li>
-                    <li>
-                        <NavLink to="/add-recipe" onClick={handleToggle} activeClassName="active-link">Add a recipe</NavLink>
+                    <li className={`navbar-item ${selected === 'addrecipe' ? 'active' : ''}`} >
+                        <NavLink to="/add-recipe" onClick={() => {handleToggle(); setSelected('addrecipe')}} activeClassName="active-link">Add a recipe</NavLink>
                     </li>
-
-                    <li>
-                        <NavLink to="/recommend-recipes" onClick={handleToggle} activeClassName="active-link">Recommended Recipes</NavLink>
+                    <li className={`navbar-item ${selected === 'recommend' ? 'active' : ''}`} >
+                        <NavLink to="/recommend-recipes" onClick={() => {handleToggle(); setSelected('recommend')}} activeClassName="active-link">Recommended Recipes</NavLink>
                     </li>
                 </ul>
             </div>

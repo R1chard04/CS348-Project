@@ -119,18 +119,18 @@ def r10_get(recipeId):
         GROUP BY r.rID, r.recipe_name;
         """
 
-def r11_add_new_recipe(recipe_name, rdescription, ringredients, rserving_size, rservings, rsteps):
+def r11_add_new_recipe(rid, recipe_name, rdescription, ringredients, rserving_size, rservings, rsteps):
     strIngredients = "{"
     for iname in ringredients:
         strIngredients += iname + ", "
     strIngredients = strIngredients[:-2] + "}"
     return [f"""
             INSERT INTO Recipes (rId, recipe_name, rdescription, ringredients, rserving_size, rservings, rsteps)
-            VALUES (1000, '{recipe_name}', '{rdescription}', '{strIngredients}', {rserving_size}, {rservings}, '{rsteps}');
+            VALUES ({rid}, '{recipe_name}', '{rdescription}', '{strIngredients}', {rserving_size}, {rservings}, '{rsteps}');
         """, 
         f"""
             INSERT INTO IngredientsInRecipe (recipeId, iname, unit_of_measure, quantity)
-            VALUES {', '.join([f"(1000, '{iname}', 'g', 100)" for iname in ringredients])};
+            VALUES {', '.join([f"({rid}, '{iname}', 'g', 100)" for iname in ringredients])};
         """]
 
 def get_low_cal_recipe():

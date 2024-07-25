@@ -79,6 +79,14 @@ const savedRecipeKeysMap = {
     "remove": "button"
 };
 
+const recommendedKeysMap = {
+    "id": "int",
+    "calories": "int",
+    "protein": "int",
+    "carbs": "int",
+    "fat": "int",
+};
+
 const PAGINATION_SIZE = 5;
 
 
@@ -98,6 +106,7 @@ const Table = ({ rows, tableType, setSavedRecipe, forceUpdate }) => {
     else if (tableType === "price") useMap = priceKeysMap;
     else if (tableType === "expensive") useMap = expensiveKeysMap;
     else if (tableType === "protein") useMap = proteinKeysMap;
+    else if (tableType === "recommended") useMap = recommendedKeysMap;
 
     const handleRowClick = (row) => {
         setSelectedRow(row);

@@ -6,19 +6,21 @@ const SavedRecipes = ({ recipes, setSavedRecipe }) => {
     const [_, forceUpdate] = useState(0);
 
     useEffect(() => {
+        console.log('recipes:');
         async function fetchRecipeInfo() {
-            const newRecipes = [];
+            let newRecipes = [];
 
             for (const recipeId of recipes) {
                 await fetch(`http://127.0.0.1:5000/getrecipe/${encodeURIComponent(recipeId)}`)
-                .then(response => response.json())
-                .then(data => {
-                    newRecipes.push(data.msg[0]); // Collect all new recipes in an array
-                })
-                .catch(error => console.error(error));
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('data:', data);
+                        newRecipes.push(data.msg[0]);
+                    })
+                    .catch(error => console.error(error));
             }
+            setRecipeList(newRecipes);
         }
-
         fetchRecipeInfo();
     }, [recipes]);
 

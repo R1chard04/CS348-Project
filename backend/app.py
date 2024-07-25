@@ -55,6 +55,7 @@ def getRecipe(id):
     #     return jsonify({'msg': cachedData})
     cur.execute(getRecipeById(id))
     rows = cur.fetchall()
+    print('rows:', rows)
     # cache.set(cacheKey, rows)
     return jsonify({'msg': rows})
 
@@ -204,16 +205,6 @@ def getBMI(weight, height):
     print(bmi)
     return jsonify({'msg': bmi})
 
-@app.route('/getrecommendedrecipes/<bmi>', methods=['GET'])
-@cross_origin()
-def getRecommendedRecipes(bmi):
-    recommended_query = recommended_recipe.recommend_recipe(int(bmi))
-    cur.execute(recommended_query)
-    print(recommended_query, bmi)
-    rows = cur.fetchall()
-    print(rows)
-    return jsonify({'msg': rows})
-
 @app.route('/getbmiplot/', methods=['GET'])
 @cross_origin()
 def getBMIPlot():
@@ -237,33 +228,28 @@ def getBMIPlot():
 #     # ====================== needs work? 
 #     return jsonify({'nutritionPlot': nutritionPlot})
 
-# Feature 6: Get recipes by ingredients
+# Feature 1: Let users add recipes
 @app.route('/addrecipe/<name>/<description>/<servings>/<servingSize>/<steps>/<ingredients>', methods=['POST'])
 @cross_origin()
 def addaRecipe(name, description, servings, servingSize, steps, ingredients):
     decodedIngredients = urllib.parse.unquote(ingredients).replace('\'', '').split(',')
     print(name, description, servings, servingSize, steps, decodedIngredients)
-    execs = r11_add_new_recipe(name, description, decodedIngredients, servingSize, servings, steps)
+    cur.execute('SELECT MAX(rid) FROM recipes;')
+    rows = cur.fetchall()
+    rid = int(rows[0][0]) + 1
+    execs = r11_add_new_recipe(rid, name, description, decodedIngredients, servingSize, servings, steps)
     cur.execute(execs[0])
     cur.execute(execs[1])
     return jsonify({'msg': 'success'})
 
-@app.route('/saverescipe/<id>', methods=['POST'])
+@app.route('/getrecommendedrecipes/<bmi>', methods=['GET'])
 @cross_origin()
-def saveRecipe(id):
-    if not id.isnumeric():
-        return jsonify({
-            'msg': [],
-            'error': 'Invalid recipe ID'})
-    cur.execute(insertIntoSavedRecipes(id))
-    conn.commit()
-    return jsonify({'msg': 'Recipe saved successfully'})
-
-@app.route('/viewsavedrecipes', methods=['GET'])
-@cross_origin()
-def viewSavedRecipes():
-    cur.execute(viewAllSavedRecipes())
+def getRecommendedRecipes(bmi):
+    recommended_query = recommended_recipe.recommend_recipe(int(bmi))
+    cur.execute(recommended_query)
+    print(recommended_query, bmi)
     rows = cur.fetchall()
+    print(rows)
     return jsonify({'msg': rows})
 
 if __name__ == '__main__':
