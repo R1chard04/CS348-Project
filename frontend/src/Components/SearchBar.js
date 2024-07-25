@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'react-router-dom';
 
 // CSS
 import './SearchBar.css';
@@ -38,13 +37,15 @@ const SearchBar = ({ setRecipe, valToEndpoint }) => {
         <div className="search-bar-container">
             {valToEndpoint[val] === 'getleastexpensive' || valToEndpoint[val] === 'getmostprotein' ? <button onClick={handleClick}>Search</button> :
             <>
-                <div id="dropdown-box">
-                    <select id="dropdown" value={val} onChange={e => setVal(e.target.value)}>
-                        <option value="">Select...</option>
-                        <option value="id">Recipe id</option>
-                        <option value="recipe_name">Recipe name</option>
-                    </select>
-                </div>
+                {valToEndpoint[val] === 'getrecipe' &&
+                    <div id="dropdown-box">
+                        <select id="dropdown" value={val} onChange={e => setVal(e.target.value)}>
+                            <option value="">Select...</option>
+                            <option value="id">Recipe id</option>
+                            <option value="recipe_name">Recipe name</option>
+                        </select>
+                    </div>
+                }
 
                 <div className="search-bar">
                     <input 

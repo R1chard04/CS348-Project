@@ -41,20 +41,14 @@ const App = () => {
     }
   }, [savedRecipe]);
 
-  const deleteSavedRecipe = (id) => {
-    const newSavedRecipe = [...savedRecipe];
-    newSavedRecipe.filter((recipe) => recipe.id !== id);
-    setSavedRecipe(newSavedRecipe);
-  }
-
   return (
     <Router>
       <div className="App">
         <div className="navbar-container">
           <Navbar className="app-navbar" />
-          <button>
+          {savedRecipe.length > 0 && <button>
             <NavLink exact to="/saved-recipes" activeClassName="active-link">View saved recipes: {savedRecipe.length}</NavLink>
-          </button>
+          </button>}
         </div>
         <h1>Recipe Search</h1>
         <Routes>
