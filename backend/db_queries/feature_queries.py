@@ -32,7 +32,10 @@ def r7_get(recipeId):
             SUM((i.fat * uc.conversion_factor / 100) * ri.quantity) * 9) AS calories,
             SUM((i.protein * uc.conversion_factor / 100) * ri.quantity) AS total_protein, 
             SUM((i.carb * uc.conversion_factor / 100) * ri.quantity) AS total_carbs, 
-            SUM((i.fat * uc.conversion_factor / 100) * ri.quantity) AS total_fat
+            SUM((i.fat * uc.conversion_factor / 100) * ri.quantity) AS total_fat,
+            SUM((i.sugar * uc.conversion_factor / 100) * ri.quantity) AS total_sugar,
+            SUM((i.vitamin_e * uc.conversion_factor / 100) * ri.quantity) AS total_vite,
+            SUM((i.vitamin_d * uc.conversion_factor / 100) * ri.quantity) AS total_vitd
         FROM Recipes r 
         JOIN IngredientsInRecipe ri ON r.rID = ri.recipeId 
         JOIN Ingredients i ON i.iname = ri.iname
@@ -57,7 +60,7 @@ def r8_get(recipeId):
                 ), 2
             ) AS cost
         FROM Recipes r
-        WHERE r.rID = ${recipeId}
+        WHERE r.rID = {recipeId}
         GROUP BY r.rID, r.recipe_name;
         """
 

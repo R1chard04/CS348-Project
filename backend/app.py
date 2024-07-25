@@ -145,17 +145,17 @@ def getPriceById(id):
     cachedData = cache.get(cacheKey)
     if cachedData:
         return jsonify({'msg': cachedData})
-    cur.execute(r7_get(id))
+    cur.execute(r8_get(int(id)))
     rows = cur.fetchall()
     cache.set(cacheKey, rows)
     return jsonify({'msg': rows})
 
 # Feature 9a: cheapest recipes
-@app.route('/getmostexpensive/', methods=['GET'])
+@app.route('/getleastexpensive/', methods=['GET'])
 @cross_origin()
 @cache.cached(timeout=50)
 def getMostExpensive():
-    cacheKey = 'mostexpensive'
+    cacheKey = 'leastexpensive'
     cachedData = cache.get(cacheKey)
     if cachedData:
         return jsonify({'msg': cachedData})

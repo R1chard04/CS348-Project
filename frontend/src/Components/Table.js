@@ -19,22 +19,39 @@ const recipeKeysMap = {
 const nutritionKeysMap = {
     "recipe_id": "int", 
     "recipe_name": "varchar", 
-    "calories": "float", 
-    "total_protein": "float", 
-    "total_carbs": "float", 
-    "total_fat": "float",
+    "calories": "int", 
+    "total_protein": "int", 
+    "total_carbs": "int", 
+    "total_fat": "int",
+    "total_sugar": "int",
+    "total_vitamin_e": "int",
+    "total_vitamin_d": "int",
 };
 const priceKeysMap = {
-    "food_name": "varchar", 
-    "food_quantity": "int", 
-    "food_metric": "int", 
-    "price": "float"
+    "id": "int", 
+    "recipe_name": "varchar", 
+    "cost": "int"
 };
 
 const ingredientKeysMap = {
     "id": "int", 
     "recipe_name": "varchar", 
-    "count": "int",
+    "matched_ingredients": "int",
+};
+
+const expensiveKeysMap = {
+    "id": "int",
+    "recipe_name": "varchar",
+    "cost": "int",
+};
+
+const proteinKeysMap = {
+    "id": "int",
+    "recipe_name": "varchar",
+    "calories": "float",
+    "protein": "float",
+    "carbs": "float",
+    "fat": "float",
 };
 
 const expandedKeysMap = {
@@ -44,10 +61,10 @@ const expandedKeysMap = {
     "steps": "varchar",
     "serving_size": "int", 
     "servings": "int", 
-    "calories": "int", 
-    "protein": "int", 
-    "carbs": "int", 
-    "fat": "int", 
+    "calories": "float", 
+    "protein": "float", 
+    "carbs": "float", 
+    "fat": "float", 
 };
 
 
@@ -60,7 +77,13 @@ const Table = ({ rows, tableType, setSavedRecipe }) => {
     const [selectedRow, setSelectedRow] = useState(null);
     const [expandedValues, setExpandedValues] = useState(null);
 
-    const useMap = tableType === "recipe" ? recipeKeysMap : tableType === "nutrition" ? nutritionKeysMap : tableType === "ingredients" ? ingredientKeysMap : priceKeysMap;
+    let useMap = null;
+    if (tableType === "recipe") useMap = recipeKeysMap;
+    else if (tableType === "nutrition") useMap = nutritionKeysMap;
+    else if (tableType === "ingredients") useMap = ingredientKeysMap;
+    else if (tableType === "price") useMap = priceKeysMap;
+    else if (tableType === "expensive") useMap = expensiveKeysMap;
+    else if (tableType === "protein") useMap = proteinKeysMap;
 
     const handleRowClick = (row) => {
         setSelectedRow(row);
@@ -108,7 +131,7 @@ const Table = ({ rows, tableType, setSavedRecipe }) => {
                         >
                             {Object.keys(useMap).map((key, cellIndex) => (
                                 <td className="table-body-data" key={cellIndex}>
-                                    {useMap[key] !== "array" ? row[cellIndex] : row[cellIndex] + ","}
+                                    {useMap[key] !== "array" ? (useMap[key] === "float" ? row[cellIndex].toFixed(2) : row[cellIndex]) : row[cellIndex] + ","}
                                 </td>
                             ))}
                         </tr>
@@ -159,7 +182,7 @@ const Table = ({ rows, tableType, setSavedRecipe }) => {
                                 {Object.keys(expandedKeysMap).map((key, index) => (
                                     <tr className='modal-row' key={index}>
                                         <td><b>{key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ')}:</b></td>
-                                        <td>{expandedValues && (key !== "steps" ? (expandedKeysMap[key] == 'int' && index !== 0 ? expandedValues[index].toFixed(2) : expandedValues[index]) : expandedValues[index].slice(0, 60).replace('[', '').replace('\'', '').replace('\', \'', ' ') + "...")}</td>
+                                        <td>{expandedValues && (key !== "steps" ? (expandedKeysMap[key] === 'int' && index !== 0 ? expandedValues[index].toFixed(2) : expandedValues[index]) : expandedValues[index].slice(0, 60).replace('[', '').replace('\'', '').replace('\', \'', ' ') + "...")}</td>
                                     </tr>
                                 ))}
                             </tbody>

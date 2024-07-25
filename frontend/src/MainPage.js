@@ -19,13 +19,13 @@ const priceSearchValToEndpoint = {
     recipe_name: 'getrecipebyname',
 };
 
-const mostExpensiveSearchValToEndpoint = {
-    id: 'getpricebyid',
+const leastExpensiveSearchValToEndpoint = {
+    id: 'getleastexpensive',
     recipe_name: 'getrecipebyname',
 };
 
 const mostProteinSearchValToEndpoint = {
-    id: 'getpricebyid',
+    id: 'getmostprotein',
     recipe_name: 'getrecipebyname',
 };
 
@@ -38,6 +38,8 @@ const MainPage = ({ setSavedRecipe }) => {
     const handleClick = (val) => {
         setSearchOption(val);
     };
+
+    console.log('search option: ', searchOption);
 
     useEffect(() => {
         fetch('http://127.0.0.1:5000/', {
@@ -70,22 +72,22 @@ const MainPage = ({ setSavedRecipe }) => {
                 <option value="Advanced Search">Advanced Search</option>
                 <option value="Nutrition Search">Nutrition Search</option>
                 <option value="Price Search">Price Search</option>
-                <option value="Most Expensive Search">Most Expensive Search</option>
+                <option value="Least Expensive Search">Least Expensive Search</option>
                 <option value="Most Protein Search">Most Protein Search</option>
             </select>
             {searchOption === 'Basic Search' && <SearchBar setRecipe={setRecipe} valToEndpoint={basicSearchValToEndpoint} />}
             {searchOption === 'Advanced Search' && <ListBar itemList={ingredients} setRecipe={setRecipe} />}
             {searchOption === 'Nutrition Search' && <SearchBar setRecipe={setRecipe} valToEndpoint={nutritionSearchValToEndpoint} />}
             {searchOption === 'Price Search' && <SearchBar setRecipe={setRecipe} valToEndpoint={priceSearchValToEndpoint} />}
-            {searchOption === 'Most Expensive Search' && <ListBar setRecipe={setRecipe} itemList={ingredients}/>}
-            {searchOption === 'Most Protein Search' && <ListBar setRecipe={setRecipe} itemList={ingredients}/>}
+            {searchOption === 'Least Expensive Search' && <SearchBar setRecipe={setRecipe} valToEndpoint={leastExpensiveSearchValToEndpoint} />}
+            {searchOption === 'Most Protein Search' && <SearchBar setRecipe={setRecipe} valToEndpoint={mostProteinSearchValToEndpoint} />}
 
-            {recipe.length > 0 && searchOption === 'Basic Search' && <Table rows={recipe} tableType="recipe" setSavedRecipe={setSavedRecipe}/>}
-            {recipe.length > 0 && searchOption === 'Advanced Search' && <Table rows={recipe} tableType="ingredients" />}
-            {recipe.length > 0 && searchOption === 'Nutrition Search' && <Table rows={recipe} tableType="nutrition" />}
-            {recipe.length > 0 && searchOption === 'Price Search' && <Table rows={recipe} tableType="price" />}
-            {recipe.length > 0 && searchOption === 'Most Expensive Search' && <Table rows={recipe} tableType="price" />}
-            {recipe.length > 0 && searchOption === 'Most Protein Search' && <Table rows={recipe} tableType="nutrition" />}
+            {recipe.length > 0 && searchOption === 'Basic Search' && <Table rows={recipe} tableType="recipe" setSavedRecipe={setSavedRecipe} />}
+            {recipe.length > 0 && searchOption === 'Advanced Search' && <Table rows={recipe} tableType="ingredients" setSavedRecipe={setSavedRecipe} />}
+            {recipe.length > 0 && searchOption === 'Nutrition Search' && <Table rows={recipe} tableType="nutrition" setSavedRecipe={setSavedRecipe} />}
+            {recipe.length > 0 && searchOption === 'Price Search' && <Table rows={recipe} tableType="price" setSavedRecipe={setSavedRecipe} />}
+            {recipe.length > 0 && searchOption === 'Least Expensive Search' && <Table rows={recipe} tableType="expensive" setSavedRecipe={setSavedRecipe} />}
+            {recipe.length > 0 && searchOption === 'Most Protein Search' && <Table rows={recipe} tableType="protein" setSavedRecipe={setSavedRecipe} />}
         </div>
     );
 };
