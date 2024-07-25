@@ -127,6 +127,47 @@ def r11_add_new_recipe(recipe_name, rdescription, ringredients, rserving_size, r
         VALUES {', '.join([f"((SELECT rId FROM new_recipe), '{iname}', '{unit_of_measure}', {quantity})" for iname, unit_of_measure, quantity in ingredients])};
         """
 
+def get_low_cal_recipe():
+    return f"""
+    SELECT r.rID, 
+        (SUM((i.protein * uc.conversion_factor / 100) * ri.quantity) * 4 + 
+        SUM((i.carb * uc.conversion_factor / 100) * ri.quantity) * 4 + 
+        SUM((i.fat * uc.conversion_factor / 100) * ri.quantity) * 9) AS calories,
+        SUM((i.protein * uc.conversion_factor / 100) * ri.quantity) AS total_protein, 
+        SUM((i.carb * uc.conversion_factor / 100) * ri.quantity) AS total_carbs, 
+        SUM((i.fat * uc.conversion_factor / 100) * ri.quantity) AS total_fat
+    FROM Recipes r 
+    JOIN IngredientsInRecipe ri ON r.rID = ri.recipeId 
+    JOIN Ingredients i ON i.iname = ri.iname
+    JOIN UnitConversions uc ON ri.unit_of_measure = uc.unit
+    GROUP BY r.rID, r.recipe_name
+    HAVING (SUM((i.protein * uc.conversion_factor / 100) * ri.quantity) * 4 + 
+            SUM((i.carb * uc.conversion_factor / 100) * ri.quantity) * 4 + 
+            SUM((i.fat * uc.conversion_factor / 100) * ri.quantity) * 9) <= 700 AND 
+            SUM((i.protein * uc.conversion_factor / 100) * ri.quantity) >= 20
+    LIMIT 10;
+    """
+
+def get_high_cal_recipe():
+    return f"""
+    SELECT r.rID, 
+    (SUM((i.protein * uc.conversion_factor / 100) * ri.quantity) * 4 + 
+     SUM((i.carb * uc.conversion_factor / 100) * ri.quantity) * 4 + 
+     SUM((i.fat * uc.conversion_factor / 100) * ri.quantity) * 9) AS calories,
+    SUM((i.protein * uc.conversion_factor / 100) * ri.quantity) AS total_protein, 
+    SUM((i.carb * uc.conversion_factor / 100) * ri.quantity) AS total_carbs, 
+    SUM((i.fat * uc.conversion_factor / 100) * ri.quantity) AS total_fat
+    FROM Recipes r 
+    JOIN IngredientsInRecipe ri ON r.rID = ri.recipeId 
+    JOIN Ingredients i ON i.iname = ri.iname
+    JOIN UnitConversions uc ON ri.unit_of_measure = uc.unit
+    GROUP BY r.rID, r.recipe_name
+    HAVING (SUM((i.protein * uc.conversion_factor / 100) * ri.quantity) * 4 + 
+            SUM((i.carb * uc.conversion_factor / 100) * ri.quantity) * 4 + 
+            SUM((i.fat * uc.conversion_factor / 100) * ri.quantity) * 9) >= 700
+    LIMIT 10;
+    """
+
 def getAllRecipes():
     return """SELECT * FROM recipes;"""
 
