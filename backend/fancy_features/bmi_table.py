@@ -5,7 +5,7 @@ import seaborn as sns
 file_path = './fancy_features/bmi.csv' 
 bmi_df = pd.read_csv(file_path, names=['Gender', 'Height', 'Weight', 'Index'], header=0)
 
-print(bmi_df)
+# print(bmi_df)
 
 def calculate_bmi(weight, height):
     height_m = height / 100
@@ -23,7 +23,7 @@ def getBmiTupleIndexes():
 
 def bmi_distrbution(user_height, user_weight):
     user_bmi = calculate_bmi(user_weight, user_height)
-    print(f"Your BMI is: {user_bmi:.2f}")
+    # print(f"Your BMI is: {user_bmi:.2f}")
 
     plt.figure(figsize=(10, 6))
     sns.histplot(bmi_df['Index'], bins=10, kde=True)
@@ -32,7 +32,7 @@ def bmi_distrbution(user_height, user_weight):
     plt.xlabel('BMI Index')
     plt.ylabel('Frequency')
     plt.legend()
-    plt.show()
+    # plt.show()
 
     plt.figure(figsize=(10, 6))
     sns.boxplot(x='Gender', y='Index', data=bmi_df)
@@ -41,8 +41,8 @@ def bmi_distrbution(user_height, user_weight):
     plt.xlabel('Gender')
     plt.ylabel('BMI Index')
     plt.legend()
-    plt.show()
+    # plt.show()
     return plt
 
 # print(tuple(bmi_df['Index']))
-bmi_distrbution(164,123)
+# bmi_distrbution(164,123)
